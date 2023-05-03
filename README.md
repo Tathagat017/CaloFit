@@ -4,8 +4,8 @@ A Clone of Cronometer Website
 
 
 <h2>Please npm i before working : Packages already in backend :These packages are already adedd </h2>
-<br/>
-"bcrypt": "^5.1.0",
+<br>
+    "bcrypt": "^5.1.0",
     "dotenv": "^16.0.3",
     "env2": "^2.2.2",
     "express": "^4.18.2",
