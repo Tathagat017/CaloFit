@@ -3,8 +3,8 @@ A Clone of Cronometer Website
 
 
 
-Please npm i before working : Packages already in backend :These packages are already adedd 
-
+<h2>Please npm i before working : Packages already in backend :These packages are already adedd </h2>
+<br/>
 "bcrypt": "^5.1.0",
     "dotenv": "^16.0.3",
     "env2": "^2.2.2",
@@ -13,7 +13,8 @@ Please npm i before working : Packages already in backend :These packages are al
     "mongoose": "^7.1.0",
     "nodemon": "^2.0.22"
 
-Please npm i before working : Frontend : These packages are already adedd 
+<h2>Please npm i before working : Frontend : These packages are already adedd </h2>
+<br/>
     @chakra-ui/react": "^2.6.1",
     "@emotion/react": "^11.10.8",
     "@emotion/styled": "^11.10.8",
