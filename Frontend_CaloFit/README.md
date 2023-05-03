@@ -1,3 +1,3 @@
-# CaloFit
+# CaloFit : Front End Notes
 
 
