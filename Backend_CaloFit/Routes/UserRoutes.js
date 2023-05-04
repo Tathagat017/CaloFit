@@ -15,12 +15,12 @@ userRouter.get("/", (req, res) => {
 // User registration route
 userRouter.post("/register", async (req, res) => {
   try {
-    const { name, email, sex, password, birthday, height, weight } = req.body;
+    const { name, email, gender, password, birthday, height, weight } = req.body;
     const hashedPassword = await bcrypt.hash(password, 5);
     const user = new userModel({
       name,
       email,
-      sex,
+      gender,
       password: hashedPassword,
       birthday,
       height,
