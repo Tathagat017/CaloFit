@@ -132,3 +132,50 @@ show total mineral,vitamin etc from user_data
 Add notes-> Post -> to add note and GET to get all notes (as soon as clicked render get notes ) and have to add new note.
 
 //Logout button
+
+
+
+Backend api instruction:
+FOODS=>
+dairy->
+        URL={BASEURL}/foods/dairies+{endpoint}
+
+        endpoints=>
+        1."/add"->It is a post request for create dairy documents
+        2."/"->It is a get request for get all dairy documents
+        3."/update/:Id" -> It is a patch request for update particular dairy documents.
+        4."/delete/:Id" -> It is a delete request for delete particular dairy documents.
+
+fruits->
+        URL={BASEURL}/foods/fruits{endpoint}
+
+        endpoints=>
+        1."/add"->It is a post request for create fruits documents
+        2."/"->It is a get request for get all fruits documents
+        3."/update/:Id" -> It is a patch request for update particular fruits documents.
+        4."/delete/:Id" -> It is a delete request for delete particular fruits documents.   
+
+For  vegetables,meats,recipes as same as fruits and dairy
+
+    URL={BASEURL}/foods/vegetables{endpoint}
+    URL={BASEURL}/foods/meats{endpoint}
+    URL={BASEURL}/foods/recipes{endpoint}
+
+FILTER=>
+    URL={BASEURL}/foods/fruits{endpoint}?{query is data object,s key & value }
+    Example:http://localhost:8080/foods/fruits?kcal=69&vita=0.8
+
+SORT=>
+     URL={BASEURL}/foods/fruits{endpoint}?sortBy={dataObj key}&sortOrder={asc/desc}
+      Example:http://localhost:8080/foods/fruits?sortBy=kcal&sortOrder=desc
+    
+pagination=>
+     URL={BASEURL}/foods/fruits{endpoint}?page={page no}&limit={limit of products}
+    Example:http://localhost:8080/foods/fruits?page=2&limit=10
+
+    It also provide total product,required page,page no.
+
+
+Example:   http://localhost:8080/foods/fruits??sortBy=kcal&sortOrder=desc&kcal=69&page=1&limit=1
+
+[All filter,sort,pagination use at same time]
