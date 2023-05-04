@@ -1,36 +1,28 @@
-const express = require("express")
-const app = express()
-app.use(express.json())
+const express = require("express");
+const app = express();
+const cors = require("cors");
+const { connection } = require("./configs/db");
+const { userRouter } = require("./Routes/UserRoutes");
+const { notesRouter } = require("./Routes/notesRoutes");
+const { auth } = require("./middlewares/authenticator");
 
-const { AppModel } = require("./Model/UserModel")
-// AppModel
+require("dotenv").config();
+const port = process.env.PORT || 4500;
 
-const bcrypt = require("bcrypt")
-const jwt = require("jsonwebtoken")
+app.use(express.json());
+app.use(cors());
+app.use("/users", userRouter);
+app.use(auth);
+app.use("/notes", notesRouter);
 
-const cors = require("cors")
-app.use(cors())
-
-const { appRouter } = require("./Routes/UserRoutes")
-const { postRouter } = require("./Routes/PostRoutes")
-const { auth } = require("./middlewares/authenticator")
-
-app.use("/users", appRouter)
-app.use(auth)
-app.use("/posts", postRouter)
-
-
-
-//--------CONNECTION-------------------->
-require("dotenv").config()
-const { connection } = require("./configs/db")
-app.listen(process.env.port || 4500, async () => {
-    try {
-        await connection;
-        console.log('Connected to DB');
-
-        console.log('Server Running at', `${process.env.port || 4800}`);
-    } catch (e) {
-        console.log('err', e);
-    }
-})
+(async () => {
+  try {
+    await connection;
+    console.log("Connected to DB");
+    app.listen(port, () => {
+      console.log(`Server running at http://localhost:${port}`);
+    });
+  } catch (e) {
+    console.log("err", e);
+  }
+})();

@@ -1,59 +1,60 @@
 const express = require("express");
-const app = express();
-app.use(express.json());
-
-const appRouter = express.Router();
-appRouter.use(express.json());
-
-require("dotenv").config();
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-const { AppModel } = require("../Model/UserModel");
+const { userModel } = require("../Model/UserModel");
 
-appRouter.get("/", (req, res) => {
+const userRouter = express.Router();
+userRouter.use(express.json());
+
+// Home page route
+userRouter.get("/", (req, res) => {
   res.send("HOME PAGE");
 });
 
-appRouter.post("/register", async (req, res) => {
-  let { name, email, sex, password, birthday, height, weight } = req.body;
+// User registration route
+userRouter.post("/register", async (req, res) => {
   try {
-    bcrypt.hash(password, 5, async (err, hash) => {
-      if (err) {
-        console.log("err++++++", e);
-      } else {
-        const app = new AppModel({ name, email, sex, password: hash, birthday, height, weight });
-        await app.save();
-        res.send("You are Registered");
-      }
+    const { name, email, sex, password, birthday, height, weight } = req.body;
+    const hashedPassword = await bcrypt.hash(password, 5);
+    const user = new userModel({
+      name,
+      email,
+      sex,
+      password: hashedPassword,
+      birthday,
+      height,
+      weight
     });
-  } catch (e) {
-    console.log("err######", e);
+    await user.save();
+    res.send("You are registered");
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Internal server error" });
   }
 });
 
-appRouter.post("/login", async (req, res) => {
-  const { email, password } = req.body;
+// User login route
+userRouter.post("/login", async (req, res) => {
   try {
-    const user = await AppModel.findOne({ email: email });
+    const { email, password } = req.body;
+    const user = await userModel.findOne({ email: email });
     if (user) {
-      bcrypt.compare(password, user.password, function (err, result) {
+      bcrypt.compare(password, user.password, (err, result) => {
         if (result) {
-          var token = jwt.sign({ userID: user._id }, "key");
-          res
-            .status(200)
-            .send({ message: "Login Successfull", token: token });
+          const token = jwt.sign({ userID: user._id }, process.env.JWT_SECRET);
+          res.status(200).send({ message: "Login successful", token: token });
         } else {
           res.status(401).send({ message: "Wrong password" });
         }
       });
     } else {
-      res.status(404).send({ message: "Please register yourself first !!!!" });
+      res.status(404).send({ message: "Please register yourself first" });
     }
-  } catch (err) {
-    res.status(401).send({ message: err.message });
+  } catch (error) {
+    console.error(error);
+    res.status(500).send({ message: "Internal server error" });
   }
 });
 
-
-module.exports = { appRouter };
+module.exports = { userRouter };

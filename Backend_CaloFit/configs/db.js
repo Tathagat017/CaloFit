@@ -1,8 +1,16 @@
-const mongoose=require("mongoose")
-mongoose.set('strictQuery', true);
+const mongoose = require('mongoose'); 
 
-require("dotenv").config()
+mongoose.set('strictQuery', true);  //Invalid queries due to misspelled / undefined schema properties will throw an error
 
-const connection=mongoose.connect(process.env.mongoURL)
+require('dotenv').config();
 
-module.exports={connection}
+const connection = async () => {
+  try {
+    await mongoose.connect(process.env.mongoURL);
+    console.log('MongoDB connected successfully');
+  } catch (err) {
+    console.log('MongoDB connection failed', err);
+  }
+};
+
+module.exports = connection;
