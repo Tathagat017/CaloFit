@@ -1,8 +1,11 @@
 import "./App.css";
+import Navbar from "./Components/Navbar/Navbar";
+import SignUpPage from "./Pages/SignUpPage";
 
 function App() {
   return <div className="App">
-    <h1>Running Frontend CaloFit App : </h1>
+<SignUpPage/>
+
   </div>;
 }
 
