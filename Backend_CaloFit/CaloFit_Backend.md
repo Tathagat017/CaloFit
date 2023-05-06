@@ -15,7 +15,7 @@ Needed Routes :
     userId:
     })
 
-    (we also check if the user is an admin, if true send to the admin console): via Frontend
+    (we also check if the user is an admin, if true send to the admin console): via Frontend :
 
     c) /user/admin
 
@@ -23,7 +23,7 @@ user.model=>{
 name,email,password,plan,height: cms,weight: kgs,age:years,gender: male/female
 }
 //Ritesh Bhai -->USER Route
-2.Food Router: <Protected Route : via Frontend> // we dont need to jwt token for these as we cab use auth state to save authentication
+2.Food Router: <Protected Route : via Frontend> // we dont need to jwt token for these as we cab use auth state to save authentication : auth state : true
 ///this routes sends information about kcal, vitamins etc of the food
 (ALL ARE GET ROUTES ONLY)
 Food Router :
@@ -67,7 +67,7 @@ walking,running,cycling ,dance,weight Lifting,
 
 Model = {
 excercise_name: "walking",
-hard_kcal/min: 19,
+hard_kcal/min: 19, --> walking for 15 mins ---> kcal burned : 19\*15;
 easy_kcal/min:10
 
 }
@@ -83,9 +83,10 @@ Nutrition intake Router for each user:
 /intake/sumtillnow :- food value eaten till now (GET)
 /intake/dailygoal :- daily goal set so far (GET/POST)
 /intake/addnewfood_recipe :- food eaten can be added (POST) : add food -> route this
+...
 /intake/excercise_user :- excercise will add here, removing food value from sumtillnow (POST) -> route this
 /intake/food_consumed:
-
+....
 user_excercise Model={
 kcal_consumed_eaten:
 excercise_done: excercise_user_Id
