@@ -44,7 +44,7 @@ const searchFilterSortMiddleware = async (req, res, next) => {
       sort[req.query.sortBy] = req.query.sortOrder === 'desc' ? -1 : 1;
     }
      // Set default pagination parameters
-  let { page = 1, limit = 10 } = req.query;
+  let { page = 1, limit } = req.query;
   page = parseInt(page);
   limit = parseInt(limit);
 
