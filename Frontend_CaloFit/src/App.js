@@ -1,11 +1,9 @@
 import "./App.css";
-import Navbar from "./Components/Navbar/Navbar";
-import SignUpPage from "./Pages/SignUpPage";
+import AllRoutes from "./Routes/AllRoutes";
 
 function App() {
   return <div className="App">
-<SignUpPage/>
-
+ <AllRoutes/>
   </div>;
 }
 
