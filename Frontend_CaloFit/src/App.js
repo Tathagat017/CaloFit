@@ -1,8 +1,9 @@
 import "./App.css";
+import AllRoutes from "./Routes/AllRoutes";
 
 function App() {
   return <div className="App">
-    <h1>Running Frontend CaloFit App : </h1>
+ <AllRoutes/>
   </div>;
 }
 
