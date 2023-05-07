@@ -24,11 +24,11 @@ const userSchema = mongoose.Schema(
       required: true,
     },
     height: {
-      type: String,
+      type: Number,
       required: true,
     },
     weight: {
-      type: String,
+      type: Number,
       required: true,
     },
     role: {
@@ -44,4 +44,4 @@ const userSchema = mongoose.Schema(
 
 const userModel = mongoose.model("User", userSchema);
 
-module.exports = userModel;
+module.exports = { userModel };

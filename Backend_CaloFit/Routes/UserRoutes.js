@@ -1,8 +1,8 @@
 const express = require("express");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
-const { userModel } = require("../Model/UserModel");
+const env = require("env2")("./.env");
+const { userModel } = require("../Model/UserModel.js");
 
 const userRouter = express.Router();
 userRouter.use(express.json());
@@ -17,7 +17,8 @@ userRouter.post("/register", async (req, res) => {
   try {
     const { name, email, gender, password, birthday, height, weight } =
       req.body;
-    const existingUser = await userModel.findOne({ email });
+
+    const existingUser = await userModel.findOne({ email: email });
     if (existingUser) {
       return res.status(409).send({ message: "User already exists" });
     }

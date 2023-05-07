@@ -18,7 +18,7 @@ notesRouter.get("/", async (req, res) => {
   }
 });
 
-notesRouter.post("/create", async (req, res) => {
+notesRouter.post("/add", async (req, res) => {
   const payload = req.body;
 
   try {

@@ -1,11 +1,11 @@
 const jwt = require("jsonwebtoken");
-require("dotenv").config();
+const env = require("env2")("./.env");
 
 const auth = (req, res, next) => {
   const token = req.headers.authorization;
   try {
     if (!token) throw new Error("Token not found");
-    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token.split(" ")[1], process.env.JWT_SECRET);
     req.body.userID = decoded.userID;
     next();
   } catch (error) {

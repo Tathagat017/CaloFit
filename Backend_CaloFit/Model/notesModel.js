@@ -22,4 +22,4 @@ const notesSchema = new mongoose.Schema(
 
 const notesModel = mongoose.model("notes", notesSchema);
 
-module.exports = notesModel;
+module.exports = { notesModel };

@@ -1,8 +1,8 @@
 const express = require("express");
-const { RecipeModel } = require("../../Model/FoodModel/recipeModel");
+const { RecipeModel } = require("../../Model/FoodModel/receipeModel.js");
 const {
   searchFilterSortMiddleware,
-} = require("../../middleware/getFunction.middleware");
+} = require("../../Middleware/getFunction.middleware.js");
 const recipesRoute = express.Router();
 // create recipes
 recipesRoute.post("/add", async (req, res) => {

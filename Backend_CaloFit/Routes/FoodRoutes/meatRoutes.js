@@ -2,7 +2,7 @@ const express = require("express");
 const { MeatModel } = require("../../Model/FoodModel/meatModel");
 const {
   searchFilterSortMiddleware,
-} = require("../../middleware/getFunction.middleware");
+} = require("../../Middleware/getFunction.middleware.js");
 const meatsRoute = express.Router();
 // create meats
 meatsRoute.post("/add", async (req, res) => {

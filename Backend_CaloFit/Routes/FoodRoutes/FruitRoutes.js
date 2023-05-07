@@ -2,7 +2,7 @@ const express = require("express");
 const { FruitModel } = require("../../Model/FoodModel/FruitModel");
 const {
   searchFilterSortMiddleware,
-} = require("../../middleware/getFunction.middleware");
+} = require("../../Middleware/getFunction.middleware.js");
 const fruitsRoute = express.Router();
 // create fruits
 fruitsRoute.post("/add", async (req, res) => {

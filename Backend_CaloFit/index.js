@@ -1,28 +1,62 @@
 const express = require("express");
 const app = express();
 const cors = require("cors");
-const { connection } = require("./configs/db");
-const { userRouter } = require("./Routes/UserRoutes");
-const { notesRouter } = require("./Routes/notesRoutes");
-const { auth } = require("./middlewares/authenticator");
+const env = require("env2")("./.env");
+const fs = require("fs");
+const path = require("path");
+const port = process.env.PORT || 8080;
+//config - db.js
 
-require("dotenv").config();
-const port = process.env.PORT || 4500;
+const { connection } = require("./config/db.js");
+//Routers
+const { userRouter } = require("./Routes/UserRoutes.js");
+const { notesRouter } = require("./Routes/notesRoutes.js");
+const { excerciseRouter } = require("./Routes/excerciseRoutes.js");
+const { nutritionRouter } = require("./Routes/NutritionIntake.js");
+const { dairysRoute } = require("./Routes/FoodRoutes/dairyRoutes.js");
+const { fruitsRoute } = require("./Routes/FoodRoutes/FruitRoutes.js");
+const { meatsRoute } = require("./Routes/FoodRoutes/meatRoutes.js");
+const { recipesRoute } = require("./Routes/FoodRoutes/receipeRoutes.js");
+const { vegetableRoute } = require("./Routes/FoodRoutes/vegetableRoutes.js");
+//MIDDLEWARES
+const { auth } = require("./Middleware/authenticator.js");
+
+//CORS - middleware
+app.use(
+  cors({
+    origin: "*",
+  })
+);
 
 app.use(express.json());
-app.use(cors());
-app.use("/users", userRouter); //user Route
-app.use(auth);
-app.use("/notes", notesRouter); //notes Route
 
-(async () => {
+//FOOD ROUTERS
+
+app.use("/food/fruits", fruitsRoute);
+app.use("/food/meat", meatsRoute);
+app.use("/food/dairy", dairysRoute);
+app.use("/food/vegetable", vegetableRoute);
+app.use("/food/recipes", recipesRoute);
+
+//EXCERCISE ROUTER
+app.use("/excercise", excerciseRouter);
+
+//USERS ROUTERS
+app.use("/users", userRouter);
+
+//PROTECTED ROUTES WITH AUTH MIDDLWARE
+app.use(auth);
+//NUTRITION DATA ROUTERS
+app.use("/notes", notesRouter);
+app.use("/nutrition/", nutritionRouter);
+
+app.listen(port, "localhost", async () => {
   try {
+    console.log("listening on port " + port);
+    console.log("connecting to MongoDB Atlas...");
     await connection;
-    console.log("Connected to DB");
-    app.listen(port, () => {
-      console.log(`Server running at http://localhost:${port}`);
-    });
-  } catch (e) {
-    console.log("err", e);
+    console.log("connected to MongoDB Atlas...");
+  } catch (err) {
+    console.log("The error while connecting to MongoDB Atlas", err);
   }
-})();
+});

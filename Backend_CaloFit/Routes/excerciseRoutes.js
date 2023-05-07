@@ -26,14 +26,16 @@ excerciseRouter.post("/add", async (req, res) => {
 });
 
 //GET ROUTE
-excerciseRouter.get("/excercise", async (req, res, next) => {
-  const { excercise, limit, pages } = req.body.query;
+excerciseRouter.get("/get", async (req, res, next) => {
+  const { excercise } = req.query;
   try {
     let excercise_details = await ExcerciseModel.findOne({
       excerciseType: excercise,
     });
+
     res.status(200).send(excercise_details);
   } catch (err) {
     res.status(404).send({ msg: err });
   }
 });
+module.exports = { excerciseRouter };
