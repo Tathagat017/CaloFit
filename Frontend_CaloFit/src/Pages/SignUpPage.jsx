@@ -1,4 +1,5 @@
 import {
+  Alert,
   Box,
   Button,
   Container,
@@ -23,8 +24,40 @@ import {
 } from "@chakra-ui/react";
 import React from "react";
 import Terms from "../Components/UmaSahni/Terms";
-
+import { useState } from "react";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 const SignUpPage = () => {
+ 
+  const InitialState = {
+  name:"",
+  email:"",
+  gender:"",
+  password:"",
+  birthday:"",
+  height:"",
+  weight:"",
+ }
+
+  const [state, setState] = useState(InitialState)
+ const navigate = useNavigate();
+ const handleChange = (e) =>{
+  const {name, value} = e.target
+  console.log(name, value)
+  setState((pre)=>({...pre, [name]:value}))
+ }
+
+ const handleSubmit = (e)=>{
+  e.preventDefault()
+  axios.post("https://calofit-backend-deployment.onrender.com/users/register", state).then((res)=>{ 
+    console.log(res)
+     navigate("/login");
+  } )
+  console.log(state)
+  setState(InitialState)
+ 
+ }
+ 
   return (
     <div>
       <Box bgColor={"#fffcf6"}>
@@ -32,11 +65,14 @@ const SignUpPage = () => {
           {" "}
           <Image h="11vh" src="calofit-white.png" />{" "}
         </Box>
+        <form onSubmit={handleSubmit} >
         <Box
           backgroundImage={"DotPatternLarge.svg"}
           bgRepeat={"no-repeat"}
           bgSize="cover"
         >
+          
+          
           <Heading
             m="10"
             fontFamily={"heading"}
@@ -55,6 +91,7 @@ const SignUpPage = () => {
             borderRadius={"8"}
             boxShadow="rgba(99, 99, 99, 0.2) 0px 2px 8px 0px"
           >
+            
             <FormControl>
               <Box display="flex" flexDirection="column">
                 <Wrap mb="4">
@@ -63,7 +100,7 @@ const SignUpPage = () => {
                       First Name
                     </Text>
                   </FormLabel>
-                  <Input border="1px solid gray" width={"60%"} type="text" />
+                  <Input onChange={(e)=>handleChange(e)} name="name" value={state.name}  border="1px solid gray" width={"60%"} type="text" />
                 </Wrap>
 
                 <Wrap mb="4">
@@ -72,7 +109,7 @@ const SignUpPage = () => {
                       Email
                     </Text>
                   </FormLabel>
-                  <Input border="1px solid gray" width={"60%"} type="email" />
+                  <Input onChange={(e)=>handleChange(e)} name="email" value={state.email} border="1px solid gray" width={"60%"} type="email" />
                 </Wrap>
 
                 <Wrap mb="4">
@@ -86,6 +123,9 @@ const SignUpPage = () => {
                     border="1px solid gray"
                     width={"60%"}
                     type="password"
+                    value={state.password}
+                    name="password"
+                    onChange={(e)=>handleChange(e)}
                   />
                 </Wrap>
 
@@ -127,11 +167,11 @@ const SignUpPage = () => {
                 </FormLabel>
                 <Stack direction={["column", "row"]} spacing="24px">
                   <Flex width={"25rem"}>
-                    <RadioGroup>
-                      <Radio mr="4" colorScheme="orange" size={"lg"} value="1">
+                    <RadioGroup     >
+                      <Radio mr="4" name="gender" value={"male"} onChange={(e)=>handleChange(e)}  colorScheme="orange" size={"lg"} >
                         Male
                       </Radio>
-                      <Radio colorScheme="orange" size={"lg"} value="2">
+                      <Radio name="gender" value={"female"} onChange={(e)=>handleChange(e)}  colorScheme="orange" size={"lg"} >
                         Female
                       </Radio>
                     </RadioGroup>
@@ -145,36 +185,7 @@ const SignUpPage = () => {
                     Birthday
                   </Text>
                 </FormLabel>
-                <Stack direction={["column", "row"]} spacing="24px">
-                  <FormLabel>
-                    Day
-                    <Select width={"30"}>
-                      <option value="option1">1</option>
-                      <option value="option2">2</option>
-                      <option value="option3">3</option>
-                    </Select>
-                  </FormLabel>
-
-                  <FormLabel>
-                    Month
-                    <Select width={"30"}>
-                      <option value="option1">January</option>
-                      <option value="option2">February</option>
-                      <option value="option3">March</option>
-                    </Select>
-                  </FormLabel>
-
-                  <FormLabel>
-                    Year
-                    <NumberInput size="md" maxW={32} defaultValue={1999}>
-                      <NumberInputField />
-                      <NumberInputStepper>
-                        <NumberIncrementStepper />
-                        <NumberDecrementStepper />
-                      </NumberInputStepper>
-                    </NumberInput>
-                  </FormLabel>
-                </Stack>
+               <Input onChange={(e)=>handleChange(e)} name="birthday" value={state.birthday} />
               </Wrap>
               {/* ------------------------------------Height------------------------------------------------------------------ */}
               <Wrap mb="8">
@@ -183,36 +194,7 @@ const SignUpPage = () => {
                     Height
                   </Text>
                 </FormLabel>
-                <Stack direction={["column", "row"]} spacing="24px">
-                  <FormLabel>
-                    ft
-                    <Select width={"30"}>
-                      <option value="option1">4</option>
-                      <option value="option2">5</option>
-                      <option value="option3">6</option>
-                    </Select>
-                  </FormLabel>
-
-                  <FormLabel>
-                    in
-                    <Select width={"30"}>
-                      <option value="option1">1</option>
-                      <option value="option2">2</option>
-                      <option value="option3">3</option>
-                    </Select>
-                  </FormLabel>
-
-                  <FormLabel>
-                    cm
-                    <NumberInput size="md" maxW={32} defaultValue={165}>
-                      <NumberInputField />
-                      <NumberInputStepper>
-                        <NumberIncrementStepper />
-                        <NumberDecrementStepper />
-                      </NumberInputStepper>
-                    </NumberInput>
-                  </FormLabel>
-                </Stack>
+                <Input onChange={(e)=>handleChange(e)} name="height" value={state.height} />
               </Wrap>
               {/* ------------------------------Weight--------------------------------------------------------- */}
 
@@ -223,30 +205,16 @@ const SignUpPage = () => {
                     Weight
                   </Text>
                 </FormLabel>
-                <Box width={"25rem"} alignItems={"flex-start"} display={"flex"}>
-                  <NumberInput size="md" maxW={32} defaultValue={45}>
-                    <NumberInputField />
-                    <NumberInputStepper>
-                      <NumberIncrementStepper />
-                      <NumberDecrementStepper />
-                    </NumberInputStepper>
-                  </NumberInput>
-                  <Text
-                    margin={"auto"}
-                    textAlign={"center"}
-                    fontWeight={"semibold"}
-                  >
-                    Kilometer
-                  </Text>
-                </Box>
+                <Input onChange={(e)=>handleChange(e)} name="weight" value={state.weight} />
               </Wrap>
             </FormControl>
+          
           </Flex>
 
           {/* ------------------------Terms & Conditions-------------------------------------------- */}
           <Terms />
 
-          <Button mt="3" mb="3" width={"15rem"} colorScheme="green">
+          <Button type="submit"  mt="3" mb="3" width={"15rem"} colorScheme="green">
             SIGN UP
           </Button>
 
@@ -260,6 +228,7 @@ const SignUpPage = () => {
             </Text>
           </Box>
         </Box>
+        </form>
       </Box>
     </div>
   );

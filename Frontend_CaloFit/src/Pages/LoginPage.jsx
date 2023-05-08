@@ -19,16 +19,17 @@ import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { login } from '../Redux/AuthReducer/action';
 import { Link } from 'react-router-dom';
-
+import { useNavigate } from "react-router-dom";
 export default function LoginPage() {
  const [email, setEmail] = useState("")
  const [password, setPassword] = useState("")
+ const navigate = useNavigate();
  const state= useSelector((store)=>store.authreducer)
  const dispatch = useDispatch()  
 
  const handleSubmit = () =>{
     const userData = {email, password}
-    dispatch(login(userData))
+    dispatch(login(userData)).then((res)=> navigate("/dashboard")  )
     setEmail("")
     setPassword("")
  }
