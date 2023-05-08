@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Heading, Image, Text } from "@chakra-ui/react";
+import { Box, Button, Flex, Heading, Image, Text ,AspectRatio} from "@chakra-ui/react";
 import React from "react";
 import { Link } from "react-router-dom";
 import HeroImage from "../Assets/cronometer-hero-graphic.png";
@@ -29,14 +29,14 @@ const HomePageData = () => {
         size={["xs", "sm", "md", "lg"]}
         direction={["column", "column", "row"]}
       >
-        <Box
+        {/* <Box
           w={["90%", "100%"]}
           mt="30px"
           display={["block", "block", "none", "none"]}
           mb={["50px", "50px"]}
         >
           <Image w="100%" src="https://cdn1.cronometer.com/webflow/crono-hero-img-22x-1-p-1600.png" alt />
-        </Box>
+        </Box> */}
         <Box
           w={["90%", "90%", "50%", "40%"]}
           mr={["0", "0", "10%"]}
@@ -66,12 +66,21 @@ const HomePageData = () => {
          
         </Box>
         <Box
-          w="50%"
-          mt="30px"
-          display={["none", "none", "block", "block"]}
-        >
-          <Image w="100%" src="https://cdn1.cronometer.com/webflow/crono-hero-img-22x-1-p-1600.png" alt />
-        </Box>
+                        w={["95%", "95%", "40%"]}
+                        m="auto"
+                        marginTop={["20px", "20px", "12%"]}
+                    >
+                        <AspectRatio ratio={5 / 3}>
+                            <iframe
+                                style={{ borderRadius: "10px" }}
+                                src="https://www.youtube.com/embed/R49fLnhMhIE"
+                                title="CaloFit | Eat Smarter. Live Better."
+                                frameborder="0"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen
+                            ></iframe>
+                        </AspectRatio>
+                    </Box>
       </Flex>
       <Box m="auto" w={["95%", "85%", "80%", "100%"]} mt="30px" backgroundColor={"#fafbff"}  pb={"1%"}>
         <Text fontSize={["3xl", "3xl", "xl", "sm"]} textAlign="center" color="
