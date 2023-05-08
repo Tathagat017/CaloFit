@@ -60,11 +60,7 @@ export default function FoodBox() {
       "potassium": 350},
 "quantity":1
 }],
-"excercise_done":[{
-"excercise":"Walking",
-"time_done":30,
-"kcal_min":4
-}],
+"excercise_done":[],
 "kcal_burnt":120,
  "total_kcal_left":23
 }
@@ -72,39 +68,36 @@ export default function FoodBox() {
 
 // console.log(object.kcal_consumed_eaten)
 
-  const patchRequestWithFoodObject = async (el)=>{
-    //  console.log(el, "This is el")
+const patchRequestWithFoodObject = async (el)=>{
+  
 
 await GetRequest()
-  console.log(Arraydata.kcal_consumed_eaten, "ArrayData")
+  // console.log(Arraydata.kcal_consumed_eaten, "ArrayData")
  
-
   let new_element = {}
 
-for(let i in el){
-  if(i!== el.userID){
-   new_element [i] = el[i]
+  for(let i in el){
+    if(i!== el.userID){
+    new_element [i] = el[i]
+    }
   }
-}
 
-let new_food = {
-food:new_element,
-quantity:1
-}
+  let new_food = {
+  food:new_element,
+  quantity:1
+  }
 
 // const newObject = 
 
 // let new_kcal = [...Arraydata.kcal_consumed_eaten, new_food];
 // console.log( new_kcal)
 
- let NewObject2 = {}
-const myDeepCopy = structuredClone(Arraydata);
+
     Arraydata.kcal_consumed_eaten.push(new_food)
     const OnlyArray =  Arraydata.kcal_consumed_eaten
     console.log(OnlyArray, "This is only array")
+    setArrayData(Arraydata.kcal_consumed_eaten = OnlyArray)
 
-setArrayData(Arraydata.kcal_consumed_eaten = OnlyArray)
-// setArrayData({...Arraydata, kcal_consumed_eaten: new_kcal} )
    console.log(Arraydata, "Here is ArrayData.........")
   axios.patch('https://calofit-backend-deployment.onrender.com/nutrition/update',
   Arraydata, {
@@ -173,7 +166,7 @@ axios.get("https://calofit-backend-deployment.onrender.com/nutrition/getuserdata
   }
   })
 .then((res)=>{
-  
+  console.log(res.data.users_data)
 setArrayData(res.data.users_data)
 
 }).catch((err)=>console.log("Error In getRequest,", err))
