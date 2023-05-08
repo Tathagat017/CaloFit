@@ -4,6 +4,7 @@ export const login = (userData)=>(dispatch)=>{
     dispatch({type:LOGIN_REQUEST})
   return  axios.post("https://calofit-backend-deployment.onrender.com/users/login", userData).then((res)=>{
         console.log(res)
+        localStorage.setItem("token",(res.data.token))
     dispatch({type:LOGIN_SUCCESS, payload:res.data.token})
     })
     .catch((err)=>{

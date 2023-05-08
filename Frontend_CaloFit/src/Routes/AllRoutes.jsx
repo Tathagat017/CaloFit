@@ -5,6 +5,8 @@ import DairyPage from '../Pages/DairyPage'
 import DashboardPage from '../Pages/DashboardPage'
 import FoodsPage from '../Pages/FoodsPage'
 import LoginPage from '../Pages/LoginPage'
+import PlansPage from '../Pages/PlansPage'
+import SettingPage from '../Pages/SettingPage'
 
 const AllRoutes = () => {
   return (
@@ -15,6 +17,8 @@ const AllRoutes = () => {
         <Route path="/dashboard" element={<DashboardPage/>} />
         <Route path="/foods" element={<FoodsPage/>} />
         <Route path="/login" element={<LoginPage/>} />
+        <Route path="/plans" element={<PlansPage/>} />
+        <Route path="/setting" element={<SettingPage/>} />
     </Routes>
   )
 }
