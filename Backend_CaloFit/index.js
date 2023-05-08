@@ -18,6 +18,8 @@ const { fruitsRoute } = require("./Routes/FoodRoutes/FruitRoutes.js");
 const { meatsRoute } = require("./Routes/FoodRoutes/meatRoutes.js");
 const { recipesRoute } = require("./Routes/FoodRoutes/receipeRoutes.js");
 const { vegetableRoute } = require("./Routes/FoodRoutes/vegetableRoutes.js");
+const { planRoute } = require("./Routes/plan/plan.route.js");
+const { userPlanRoute } = require("./Routes/plan/userPlan.route.js");
 //MIDDLEWARES
 const { auth } = require("./Middleware/authenticator.js");
 
@@ -44,11 +46,18 @@ app.use("/excercise", excerciseRouter);
 //USERS ROUTERS
 app.use("/users", userRouter);
 
+//GENERAL PLAN ROUTER
+app.use("/plan", planRoute);
+
 //PROTECTED ROUTES WITH AUTH MIDDLWARE
 app.use(auth);
 //NUTRITION DATA ROUTERS
 app.use("/notes", notesRouter);
 app.use("/nutrition/", nutritionRouter);
+
+//USER PLAN ROUTER
+
+app.use("/userplan", userPlanRoute);
 
 app.listen(port, "localhost", async () => {
   try {

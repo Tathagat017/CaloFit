@@ -1,9 +1,13 @@
 import "./App.css";
+import AllRoutes from "./Routes/AllRoutes";
+import Navbar from "./Components/Navbar/Navbar";
 
 function App() {
-  return <div className="App">
-    <h1>Running Frontend CaloFit App : </h1>
-  </div>;
+  return (
+    <div className="App">
+      <AllRoutes />
+    </div>
+  );
 }
 
 export default App;
