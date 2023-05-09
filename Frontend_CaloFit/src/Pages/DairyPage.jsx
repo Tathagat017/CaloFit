@@ -9,7 +9,7 @@ const DairyPage = () => {
     <DashboardPage>
       <Grid templateColumns={{ base: "1fr", md: "2fr 1fr", lg:"3fr 1fr" }} gap={4}>
         <DairyBox />
-      <Box boxShadow="base" p="6" rounded="md" bg="white"  >
+      <Box boxShadow="base" p="6" height={"auto"} rounded="md" bg="white"  >
         <CalendarBox />
         </Box>
       </Grid>
