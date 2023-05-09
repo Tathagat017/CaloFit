@@ -9,19 +9,23 @@ import PlansPage from "../Pages/PlansPage";
 import SettingPage from "../Pages/SettingPage";
 import AdminPage from "./../Pages/Admin/AdminPage";
 import HomePage from "../Pages/HomePage";
+import ProtectedRoute from "./ProtectedRoute";
+import NotFound from "../Pages/NotFound";
 
 const AllRoutes = () => {
   return (
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/signup" element={<SignUpPage />} />
-      <Route path="/diary" element={<DairyPage />} />
-      <Route path="/dashboard" element={<DashboardPage />} />
-      <Route path="/foods" element={<FoodsPage />} />
-      <Route path="/login" element={<LoginPage />} />
-      <Route path="/plans" element={<PlansPage />} />
-      <Route path="/setting" element={<SettingPage />} />
-      <Route path="/admin" element={<AdminPage />} />
+      <Route path="/login" element={<LoginPage /> } />
+      <Route path="*" element={<NotFound/>} />
+      <Route path="/diary" element={ <ProtectedRoute> <DairyPage /></ProtectedRoute>} />
+      <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute> } />
+      <Route path="/foods" element={ <ProtectedRoute><FoodsPage /></ProtectedRoute> } />
+      <Route path="/plans" element={<ProtectedRoute><PlansPage /></ProtectedRoute> } />
+      <Route path="/setting" element={ <ProtectedRoute><SettingPage /></ProtectedRoute> } />
+      <Route path="/admin" element={ <ProtectedRoute><AdminPage /></ProtectedRoute> } />
+     
     </Routes>
   );
 };

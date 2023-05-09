@@ -20,7 +20,7 @@ const Footer = () => {
           >
             <Box w={["60%", "60%", "25%"]} m={["auto", "auto", "none"]}>
               <Image
-                src="./calofit.png"
+                src="./calofit-white.png"
                 alt="logo"
                 w={["100%", "100%", "70%"]}
               />
