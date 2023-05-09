@@ -12,7 +12,8 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { FaAppleAlt } from "react-icons/fa";
 import {useSelector} from "react-redux"
-export default function FoodBox() {
+
+export default function FoodBox({onData}) {
   const { isOpen, onOpen, onClose } = useDisclosure()
   const [linkData, setLinkData] = useState()
   const [Arraydata, setArrayData] = useState([])
@@ -22,13 +23,6 @@ export default function FoodBox() {
   const [toggle, setToggle] = useState(true)
 
   Token = localStorage.getItem("token")
-
- 
-
-//  console.log(Token)
-
-
-
 
  const data = [
     {name:"Fruits",icon:"https://cdn-icons-png.flaticon.com/512/1147/1147832.png",link:"https://calofit-backend-deployment.onrender.com/food/fruits",type:"fruits"},
@@ -65,14 +59,9 @@ export default function FoodBox() {
  "total_kcal_left":23
 }
 
+  const patchRequestWithFoodObject = async (el)=>{
 
-// console.log(object.kcal_consumed_eaten)
-
-const patchRequestWithFoodObject = async (el)=>{
-  
-
-await GetRequest()
-  // console.log(Arraydata.kcal_consumed_eaten, "ArrayData")
+  await GetRequest()
  
   let new_element = {}
 
@@ -87,37 +76,22 @@ await GetRequest()
   quantity:1
   }
 
-// const newObject = 
-
-// let new_kcal = [...Arraydata.kcal_consumed_eaten, new_food];
-// console.log( new_kcal)
-
-
     Arraydata.kcal_consumed_eaten.push(new_food)
     const OnlyArray =  Arraydata.kcal_consumed_eaten
-    console.log(OnlyArray, "This is only array")
+    // console.log(OnlyArray, "This is only array")
     setArrayData(Arraydata.kcal_consumed_eaten = OnlyArray)
-
-   console.log(Arraydata, "Here is ArrayData.........")
+    onData(Arraydata)
+  //  console.log(Arraydata, "Here is ArrayData.........")
   axios.patch('https://calofit-backend-deployment.onrender.com/nutrition/update',
   Arraydata, {
      headers: {
     Authorization: `Bearer ${Token}`,
    }
-  }
-  
-  )
+  }).then((res)=> GetRequest()).catch((err)=>console.log("Error from PatchRequest", err))
 
-
-
- 
-    
-     
   }
 
-
-
-  // ----------------------------------------------------------------------------------
+  // postRequestWithFoodObject
   
 const postRequestWithFoodObject = (el) =>{
   object.kcal_consumed_eaten ={
@@ -138,43 +112,24 @@ const postRequestWithFoodObject = (el) =>{
   });
 }
 
-
-
+// GetRequest
 
   const handleAddToDairy =(el)=>{
-
-  
-
- let isUserData = postRequestWithFoodObject(el)
-
-// if(isUserData===403){
-//  patchRequestWithFoodObject(el)
-// }else{
-//   console.log(isUserData)
-// }
-    
-
-  
+  postRequestWithFoodObject(el)
   }
-// 
+
   const GetRequest = () =>{
-
-
-axios.get("https://calofit-backend-deployment.onrender.com/nutrition/getuserdata", {
+  axios.get("https://calofit-backend-deployment.onrender.com/nutrition/getuserdata", {
   headers: {
     Authorization: `Bearer ${Token}`
   }
   })
-.then((res)=>{
-  console.log(res.data.users_data)
-setArrayData(res.data.users_data)
-
-}).catch((err)=>console.log("Error In getRequest,", err))
-
+  .then((res)=>{
+  // console.log(res.data.users_data)
+  setArrayData(res.data.users_data)
+  }).catch((err)=>console.log("Error In getRequest,", err))
 
   }
-
-
 
   return (
     <>
@@ -270,7 +225,7 @@ setArrayData(res.data.users_data)
              <Text onClick={()=>setToggle(true)} >Close</Text> 
             </Button>
             <Button colorScheme="green"> <Text onClick={()=>setToggle(true)} >Save</Text> </Button>
-         <Button onClick={GetRequest} >Get Data</Button>
+         {/* <Button onClick={GetRequest} >Get Data</Button> */}
           </ModalFooter>
         </ModalContent>
       </Modal>
