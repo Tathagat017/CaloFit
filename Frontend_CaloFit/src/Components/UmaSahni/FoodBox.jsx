@@ -21,48 +21,36 @@ export default function FoodBox({onData}) {
  
   var Token;
   const [toggle, setToggle] = useState(true)
-
-  Token = localStorage.getItem("token")
-
+  Token = localStorage.getItem("token") // Local storage token
+onData(Arraydata)
  const data = [
-    {name:"Fruits",icon:"https://cdn-icons-png.flaticon.com/512/1147/1147832.png",link:"https://calofit-backend-deployment.onrender.com/food/fruits",type:"fruits"},
-    {name:"Vegetables",icon:"https://cdn-icons-png.flaticon.com/512/5346/5346571.png",link:"https://calofit-backend-deployment.onrender.com/food/vegetable",type:"vegetables"},
-    {name:"Meats",icon:"https://cdn-icons-png.flaticon.com/512/4336/4336872.png",link:"https://calofit-backend-deployment.onrender.com/food/meat",type:"meats"},
-    {name:"Recipes",icon:"https://cdn-icons-png.flaticon.com/512/1790/1790457.png",link:"https://calofit-backend-deployment.onrender.com/food/recipes",type:"recipes"},
-    {name:"Dairy",icon:"https://cdn-icons-png.flaticon.com/512/2174/2174676.png",link:"https://calofit-backend-deployment.onrender.com/food/dairy",type:"dairys"},
+    {name:"Fruits",icon:"https://cdn-icons-png.flaticon.com/512/1147/1147832.png",link:"https://calofit-backend-deployment.onrender.com/food/fruits",type:"fruits", id:"1"},
+    {name:"Vegetables",icon:"https://cdn-icons-png.flaticon.com/512/5346/5346571.png",link:"https://calofit-backend-deployment.onrender.com/food/vegetable",type:"vegetables", id:"2"},
+    {name:"Meats",icon:"https://cdn-icons-png.flaticon.com/512/4336/4336872.png",link:"https://calofit-backend-deployment.onrender.com/food/meat",type:"meats", id:"3"},
+    {name:"Recipes",icon:"https://cdn-icons-png.flaticon.com/512/1790/1790457.png",link:"https://calofit-backend-deployment.onrender.com/food/recipes",type:"recipes", id:"4"},
+    {name:"Dairy",icon:"https://cdn-icons-png.flaticon.com/512/2174/2174676.png",link:"https://calofit-backend-deployment.onrender.com/food/dairy",type:"dairys", id:"5"},
   ] 
+
   const handleClick = (link, type) =>{
    axios.get(link).then((res)=> setLinkData(res.data[type]))
     setToggle(false)
   }
-// vegetables,meats,recipes as same as fruits
+  // vegetables,meats,recipes as same as fruits
   const handleFetch = (el) =>{
   //  console.log(el )
   }
 
- const object = { "kcal_consumed_eaten":[{
-  "food":{"name": "Beef Tenderloin",
-      "kcal": 143,
-      "carb": 0,
-      "protein": 20,
-      "vitA": 0,
-      "vitD": 0,
-      "vitC": 0,
-      "vitE": 0,
-      "mineral": 2,
-      "fat": 7,
-      "potassium": 350},
-"quantity":1
-}],
-"excercise_done":[],
-"kcal_burnt":120,
- "total_kcal_left":23
+ const object = { 
+    "kcal_consumed_eaten":[],
+    "excercise_done":[],
+    "kcal_burnt":120,
+    "total_kcal_left":23
 }
 
+// Patch Request
   const patchRequestWithFoodObject = async (el)=>{
-
-  await GetRequest()
- 
+  try {
+   GetRequest()
   let new_element = {}
 
   for(let i in el){
@@ -81,17 +69,21 @@ export default function FoodBox({onData}) {
     // console.log(OnlyArray, "This is only array")
     setArrayData(Arraydata.kcal_consumed_eaten = OnlyArray)
     onData(Arraydata)
-  //  console.log(Arraydata, "Here is ArrayData.........")
-  axios.patch('https://calofit-backend-deployment.onrender.com/nutrition/update',
-  Arraydata, {
-     headers: {
-    Authorization: `Bearer ${Token}`,
-   }
-  }).then((res)=> GetRequest()).catch((err)=>console.log("Error from PatchRequest", err))
+   console.log(Arraydata, "Here is ArrayData.........")
+ 
+  axios.patch('https://calofit-backend-deployment.onrender.com/nutrition/update',Arraydata, 
+  {
+  headers: {Authorization: `Bearer ${Token}`,}
+  })
+  .then((res)=> GetRequest())
+  .catch((err)=>console.log("Error from PatchRequest", err))
 
+  } catch (error) {
+      console.log("Error From Patch Request", error)
   }
+}
 
-  // postRequestWithFoodObject
+// postRequestWithFoodObject
   
 const postRequestWithFoodObject = (el) =>{
   object.kcal_consumed_eaten ={
@@ -128,8 +120,11 @@ const postRequestWithFoodObject = (el) =>{
   // console.log(res.data.users_data)
   setArrayData(res.data.users_data)
   }).catch((err)=>console.log("Error In getRequest,", err))
-
   }
+
+  useEffect(()=>{
+    GetRequest()
+  },[])
 
   return (
     <>
@@ -146,8 +141,8 @@ const postRequestWithFoodObject = (el) =>{
   toggle ?  <SimpleGrid p="5" borderRadius={"4"} bg="#f4f8f9" border={"1px solid #e6e7e8 "} columns={{sm: 2, md: 3, lg:4}} spacing='3'>
           
           {
-            data?.map(({name, icon, link, type})=>{
-              return <Box p="3" bg="white"
+            data?.map(({name, icon, link, type, id})=>{
+              return <Box key={id} p="3" bg="white"
                _hover={{
                 boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px"
               }} 
@@ -199,7 +194,7 @@ const postRequestWithFoodObject = (el) =>{
           </Thead>
            {
             linkData?.map((el)=>{
-                return  <Tbody onClick={()=>handleFetch(el)} >
+                return  <Tbody key={Date.now()+el.name} onClick={()=>handleFetch(el)} >
               <Tr>
               <Td >{el.name}</Td>
               <Td>{el.protein}</Td>
@@ -232,5 +227,7 @@ const postRequestWithFoodObject = (el) =>{
       
     </>
   )
+
+
 }
 

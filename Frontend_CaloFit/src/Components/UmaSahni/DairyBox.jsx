@@ -7,15 +7,16 @@ import Fast from "./Fast";
 
 const DairyBox = () => {
  const [dataFromChild, setDataFromChild] = useState(null);
+//  console.log(dataFromChild)
  const handleDataFromChild = (data) => {
     setDataFromChild(data.kcal_consumed_eaten);
     
   };
-  console.log("This Data is from Parent", dataFromChild)
+  // console.log("This Data is from Parent", dataFromChild)
   return (
     <div>
       <Box  pl="4"
-          pr="4" pb="3" borderRadius={"4"} boxShadow= "rgba(0, 0, 0, 0.24) 0px 3px 8px" width={"100%"}   h="auto" bg="white">
+          pr="4" pb="3" borderRadius={"4"} minH={"30vh"} boxShadow= "rgba(0, 0, 0, 0.24) 0px 3px 8px" width={"100%"}   h="auto" bg="white">
        
       <Box  >
       <FoodBox  onData={handleDataFromChild} />
@@ -31,6 +32,7 @@ const DairyBox = () => {
 
        dataFromChild?.map((el)=>{
        return <Flex 
+       key={Date.now()+"el.food.name"+Math.random()}
        _hover={{
         bg:"#f0f2fa"
        }}
