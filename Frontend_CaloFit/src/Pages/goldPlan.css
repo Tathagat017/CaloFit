@@ -1,0 +1,52 @@
+.bgImage {
+  width: 95%;
+  border-radius: 10px;
+  padding: 20px;
+  background: white;
+  border: "1px" solid black;
+  margin: auto;
+  /* background-image: url("https://cdn1.cronometer.com/plans/gold-panel-dots.svg"); */
+  background-size: 300px;
+  background-repeat: no-repeat;
+}
+/* Popup container */
+.form-popup {
+  border-radius: 10px;
+  width: 70%;
+  position: fixed;
+  top: 2vh;
+  left: 10vh;
+  right: 0;
+  bottom: 0;
+ background: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  display: flex;
+  /* justify-content: center; */
+  z-index: 99;
+}
+
+/* Full-width input fields */
+.form-container input[type=text], .form-container input[type=password] {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0 15px 0;
+  border: none;
+  background: #f1f1f1;
+}
+
+/* Add a red background color to the cancel button */
+.form-container .cancel {
+  background-color: red;
+}
+
+/* Add some hover effects to buttons */
+.form-container .btn:hover, .open-button:hover {
+  opacity: 1;
+}
+.form-container{
+  padding-top: 7%;
+  padding-bottom: 7%;
+  padding-right: 15%;
+  padding-left: 15%;
+}
+
