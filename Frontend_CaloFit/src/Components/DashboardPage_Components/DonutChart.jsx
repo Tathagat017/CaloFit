@@ -8,37 +8,10 @@ const DonutChart = (props) => {
   const radius = 30;
   const dashArray = 2 * Math.PI * radius;
   const startAngle = -90;
-  const donut = [
-    {
-      name: "Porta",
-      color: "#05103b",
-      value: 70,
-    },
-    {
-      name: "Curabitur",
-      color: "#2facff",
-      value: 65,
-    },
-    {
-      name: "Fusce",
-      color: "#ffcf04",
-      value: 33,
-    },
-    {
-      name: "Morbi",
-      color: "#ff8900",
-      value: 88,
-    },
-    {
-      name: "Donec",
-      color: "#ff3838",
-      value: 92,
-    },
-  ];
 
   let filled = 0;
 
-  const sum = donut.reduce((sum, item) => {
+  const sum = props.data.reduce((sum, item) => {
     return sum + item.value;
   }, 0);
 
@@ -58,7 +31,7 @@ const DonutChart = (props) => {
   return (
     <DIV>
       <div className="donut-chart">
-        <svg width="300px" height="300px" viewBox="0 0 100 100">
+        <svg width="100%" height="100%" viewBox="0 0 100 100">
           {props.data.map((item, index) => (
             <circle
               key={index}
@@ -86,6 +59,16 @@ const DonutChart = (props) => {
               </title>
             </circle>
           ))}
+          <text
+            x={cx}
+            y={cy + 5}
+            textAnchor="middle"
+            fontSize="10"
+            fontWeight="bold"
+            fill="#05103b"
+          >
+            {sum.toFixed(2)}
+          </text>
         </svg>
         <ul className="items-names">
           {props.data.map((item, index) => (
@@ -96,7 +79,7 @@ const DonutChart = (props) => {
                 background: `linear-gradient(90deg, ${item.color} 0, ${item.color} 20px, transparent 20px, transparent 100%)`,
               }}
             >
-              {item.name}
+              {item.name.substring(0, 4)}
             </li>
           ))}
         </ul>
