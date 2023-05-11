@@ -23,6 +23,7 @@ import {
 } from "react-icons/fi";
 import { Link } from "react-router-dom";
 import { FiLogOut } from "react-icons/fi";
+import { useSelector } from "react-redux";
 const LinkItems = [
   { name: "Dashboard", icon: FiHome, title: "/dashboard" },
   { name: "Diary", icon: FiTrendingUp, title: "/diary" },
@@ -33,6 +34,7 @@ const LinkItems = [
 
 export default function DashboardPage({ children }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  let {auth, token} = useSelector((store)=>store.authreducer)
   return (
     <Box minH="100vh" bg={"#fffcf6"}>
       <SidebarContent
@@ -64,7 +66,7 @@ export default function DashboardPage({ children }) {
         display={"flex"}
       >
         {/* <Text fontSize={"larger"} fontWeight={"semibold"}  alignItems={"center"} padding={"2"} textAlign={"right"} >Account</Text> */}
-        <Button variant="outline" position={"right"} rightIcon={<FiLogOut />}>
+        <Button  variant="outline" position={"right"} rightIcon={<FiLogOut />}>
           Logout
         </Button>
       </Box>
