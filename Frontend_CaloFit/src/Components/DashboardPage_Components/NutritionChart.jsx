@@ -11,7 +11,7 @@ const NutritionChart = ({ datas, bgc, sz, size, cal }) => {
         label: "Nutritional Information",
         data: [2, 3, 4, 3],
         backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0"],
-        hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#4BC0C0"],
+        hoverBackgroundColor: ["#636dff", "#36A2EB", "#FFCE56", "#4BC0C0"],
       },
     ],
   };
@@ -24,7 +24,7 @@ const NutritionChart = ({ datas, bgc, sz, size, cal }) => {
         position: "bottom",
         labels: {
           font: {
-            size: 10,
+            size: 15,
           },
         },
       },
@@ -51,4 +51,4 @@ const NutritionChart = ({ datas, bgc, sz, size, cal }) => {
   );
 };
 
-export { NutritionChart };
+export default NutritionChart;
