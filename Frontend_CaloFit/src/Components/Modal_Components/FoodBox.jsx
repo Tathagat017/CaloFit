@@ -33,7 +33,8 @@ import { useEffect, useState } from "react";
 import { FaAppleAlt } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import DonutChart from "./../DashboardPage_Components/DonutChart";
-export default function FoodBox() {
+
+export default function FoodBox({onData}) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [linkData, setLinkData] = useState();
   const [Arraydata, setArrayData] = useState([]);
@@ -91,6 +92,7 @@ export default function FoodBox() {
     },
   ];
   const [donutData, setDonutData] = useState(initialDonutData);
+  
   useEffect(() => {
     setDonutData(initialDonutData);
   }, [isOpen]);
@@ -99,10 +101,9 @@ export default function FoodBox() {
 
   var Token;
   const [toggle, setToggle] = useState(true);
-
   Token = localStorage.getItem("token");
 
-  //  console.log(Token)
+onData(Arraydata)
 
   const data = [
     {
@@ -136,6 +137,7 @@ export default function FoodBox() {
       type: "dairys",
     },
   ];
+ 
   const handleClick = (link, type) => {
     axios.get(link).then((res) => setLinkData(res.data[type]));
     setToggle(false);
@@ -146,31 +148,15 @@ export default function FoodBox() {
   };
 
   const object = {
-    kcal_consumed_eaten: [
-      {
-        food: {
-          name: "Beef Tenderloin",
-          kcal: 143,
-          carb: 0,
-          protein: 20,
-          vitA: 0,
-          vitD: 0,
-          vitC: 0,
-          vitE: 0,
-          mineral: 2,
-          fat: 7,
-          potassium: 350,
-        },
-        quantity: 1,
-      },
-    ],
+    kcal_consumed_eaten: [],
     excercise_done: [],
     kcal_burnt: 120,
     total_kcal_left: 23,
   };
 
   // console.log(object.kcal_consumed_eaten)
-
+ 
+  // Patch Request
   const patchRequestWithFoodObject = async (el) => {
     let new_mapped = [...donutData];
     let i = 0;
@@ -183,9 +169,9 @@ export default function FoodBox() {
     if (i >= 9) {
       i = 0;
     }
-    console.log(new_mapped);
+    // console.log(new_mapped);
     setDonutData(new_mapped);
-    console.log(donutData);
+    // console.log(donutData);
     await GetRequest();
     // console.log(Arraydata.kcal_consumed_eaten, "ArrayData")
 
@@ -211,20 +197,19 @@ export default function FoodBox() {
     const OnlyArray = Arraydata.kcal_consumed_eaten;
     console.log(OnlyArray, "This is only array");
     setArrayData((Arraydata.kcal_consumed_eaten = OnlyArray));
-
+     onData(Arraydata)
     console.log(Arraydata, "Here is ArrayData.........");
     axios.patch(
-      "https://calofit-backend-deployment.onrender.com/nutrition/update",
+      `${process.env.REACT_APP_BACKEND_KEY}/nutrition/update`,
       Arraydata,
       {
         headers: {
           Authorization: `Bearer ${Token}`,
         },
-      }
-    );
+      }).then((res)=> GetRequest()).catch((err)=>console.log("Error from PatchRequest", err))
   };
 
-  // ----------------------------------------------------------------------------------
+  // postRequestWithFoodObject
 
   const postRequestWithFoodObject = (el) => {
     let new_mapped = [...donutData];
@@ -238,7 +223,7 @@ export default function FoodBox() {
     if (i >= 9) {
       i = 0;
     }
-    console.log(new_mapped);
+    // console.log(new_mapped);
     setDonutData(new_mapped);
     object.kcal_consumed_eaten = {
       food: el,
@@ -246,7 +231,7 @@ export default function FoodBox() {
     };
     axios
       .post(
-        "https://calofit-backend-deployment.onrender.com/nutrition/add",
+        `${process.env.REACT_APP_BACKEND_KEY}/nutrition/add`,
         object,
         {
           headers: {
@@ -266,19 +251,17 @@ export default function FoodBox() {
   };
 
   const handleAddToDairy = (el) => {
-    let isUserData = postRequestWithFoodObject(el);
+    postRequestWithFoodObject(el);
     setSelectedFood(el);
-    // if(isUserData===403){
-    //  patchRequestWithFoodObject(el)
-    // }else{
-    //   console.log(isUserData)
-    // }
+   
   };
-  //
+
+
+  // GetRequest
   const GetRequest = () => {
     axios
       .get(
-        "https://calofit-backend-deployment.onrender.com/nutrition/getuserdata",
+        `${process.env.REACT_APP_BACKEND_KEY}/nutrition/getuserdata`,
         {
           headers: {
             Authorization: `Bearer ${Token}`,
@@ -291,6 +274,7 @@ export default function FoodBox() {
       })
       .catch((err) => console.log("Error In getRequest,", err));
   };
+ 
   const donut = [
     {
       name: "kcal",
@@ -343,8 +327,14 @@ export default function FoodBox() {
       value: 8,
     },
   ];
-  console.log("this is current item", linkData);
-  return (
+ // console.log("this is current item", linkData);
+ 
+useEffect(()=>{
+    GetRequest()
+  },[setArrayData])
+
+
+ return (
     <>
       <Button
         leftIcon={<FaAppleAlt />}
@@ -503,7 +493,7 @@ export default function FoodBox() {
               {" "}
               <Text onClick={() => setToggle(true)}>Save</Text>{" "}
             </Button>
-            <Button onClick={GetRequest}>Get Data</Button>
+           
           </ModalFooter>
         </ModalContent>
       </Modal>
