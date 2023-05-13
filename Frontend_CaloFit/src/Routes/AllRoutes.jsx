@@ -17,15 +17,56 @@ const AllRoutes = () => {
     <Routes>
       <Route path="/" element={<HomePage />} />
       <Route path="/signup" element={<SignUpPage />} />
-      <Route path="/login" element={<LoginPage /> } />
-      <Route path="*" element={<NotFound/>} />
-      <Route path="/diary" element={  <DairyPage />} />
-      <Route path="/dashboard" element={<ProtectedRoute><DashboardPage /></ProtectedRoute> } />
-      <Route path="/foods" element={ <ProtectedRoute><FoodsPage /></ProtectedRoute> } />
-      <Route path="/plans" element={<ProtectedRoute><PlansPage /></ProtectedRoute> } />
-      <Route path="/setting" element={ <ProtectedRoute><SettingPage /></ProtectedRoute> } />
-      <Route path="/admin" element={ <ProtectedRoute><AdminPage /></ProtectedRoute> } />
-     
+      <Route path="/login" element={<LoginPage />} />
+      <Route path="*" element={<NotFound />} />
+      <Route
+        path="/diary"
+        element={
+          <ProtectedRoute>
+            <DairyPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/dashboard"
+        element={
+          <ProtectedRoute>
+            <DashboardPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/foods"
+        element={
+          <ProtectedRoute>
+            <FoodsPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/plans"
+        element={
+          <ProtectedRoute>
+            <PlansPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/setting"
+        element={
+          <ProtectedRoute>
+            <SettingPage />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/admin"
+        element={
+          <ProtectedRoute>
+            <AdminPage />
+          </ProtectedRoute>
+        }
+      />
     </Routes>
   );
 };
