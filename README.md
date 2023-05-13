@@ -1,7 +1,8 @@
 # Cronometer Clone - CaloFit
 *An online application to keep track of your health*
 
-# Deployed Link <a> https://calofit.netlify.app/ </a>
+# Deployed Link <a href="https://calofit.netlify.app/"> </a>
+
 # Features
  - Landing Page
  - Sign Up New User
