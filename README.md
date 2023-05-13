@@ -14,7 +14,7 @@ A Clone of Cronometer Website
     "nodemon": "^2.0.22"
 
 <h2>Please npm i before working : Frontend : These packages are already adedd </h2>
-<br>
+
 
     @chakra-ui/react": "^2.6.1",
     "@emotion/react": "^11.10.8",
