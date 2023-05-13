@@ -31,7 +31,7 @@ import axios from "axios";
 const GoldPlan = () => {
   const [changePrice, setChangePrice] = useState(false);
   const [open, setOpen] = useState(false);
-  const [plans, setPlans] = useState("")
+  const [plans, setPlans] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   let [formData, setFormData] = useState({
     name: "",
@@ -41,50 +41,56 @@ const GoldPlan = () => {
     end_date: "",
     // userId: "",
   });
-  const toast = useToast({ position: 'top' })
+  const toast = useToast({ position: "top" });
   const afterOneYear = () => {
     const currentDate = new Date(); // get the current date
-    const oneYearFromNow = new Date(currentDate.getFullYear() + 1, currentDate.getMonth(), currentDate.getDate()); // create a new date object for 1 year from now
-    return (oneYearFromNow.toISOString().slice(0, 10)); // log the date in ISO format (YYYY-MM-DD)
-  }
+    const oneYearFromNow = new Date(
+      currentDate.getFullYear() + 1,
+      currentDate.getMonth(),
+      currentDate.getDate()
+    ); // create a new date object for 1 year from now
+    return oneYearFromNow.toISOString().slice(0, 10); // log the date in ISO format (YYYY-MM-DD)
+  };
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
   // formData.mo_no=ToNumber(formData.mo_no)
- 
+
   // console.log(formData)
   const openForm = () => {
     const newData = {
-      ...formData, str_date: new Date().toISOString().slice(0, 10),
-      end_date: (changePrice) ? new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000)
-        .toISOString()
-        .slice(0, 10) : afterOneYear(),
+      ...formData,
+      str_date: new Date().toISOString().slice(0, 10),
+      end_date: changePrice
+        ? new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000)
+            .toISOString()
+            .slice(0, 10)
+        : afterOneYear(),
       // userId: "",
     };
-    setFormData(newData)
+    setFormData(newData);
     setIsOpen(true);
   };
 
   const closeForm = () => {
     setIsOpen(false);
   };
-let token=localStorage.getItem("token")
+  let token = localStorage.getItem("token");
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form submitted");
     console.log(formData);
-    axios.post('https://calofit-backend-deployment.onrender.com/userplan/add',
-    formData, {
-     headers: {
-    Authorization: `Bearer ${token}`,
-   }
-  }
-  
-  ).then(() => console.log("post Success"))
-  .catch(err => console.log(err))
-closeForm();
-};
+    axios
+      .post("https://calofitbackend.cyclic.app/userplan/add", formData, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then(() => console.log("post Success"))
+      .catch((err) => console.log(err));
+    closeForm();
+  };
   //   axios.post('https://calofit-backend-deployment.onrender.com/userplan/add', formData,{
   //     headers:{
   //       'Authorization': Bearer token
@@ -101,21 +107,21 @@ closeForm();
     setOpen(!open);
   };
   useEffect(() => {
-    axios.get('https://calofit-backend-deployment.onrender.com/plan').then(res => setPlans(res.data))
+    axios
+      .get("https://calofitbackend.cyclic.app/plan")
+      .then((res) => setPlans(res.data));
   }, []);
   // console.log(plans)
-  let plan
+  let plan;
   if (plans) {
-    plans.forEach(el => {
+    plans.forEach((el) => {
       if (el.name === "Gold") {
         plan = el;
       }
-    }
-    );
+    });
   }
   // console.log(plan)
   return (
-
     <Box className="bgImage">
       <Flex
         flexDirection={["column", "column", "row"]}
@@ -132,7 +138,7 @@ closeForm();
           </Text>
           <br />
           <UnorderedList fontSize={["10px", "13px", "17px"]}>
-            {plan ? plan.features.map(el => <ListItem>{el}</ListItem>) : ""}
+            {plan ? plan.features.map((el) => <ListItem>{el}</ListItem>) : ""}
           </UnorderedList>
           <br />
           <Button
@@ -275,9 +281,19 @@ closeForm();
               src="https://cdn1.cronometer.com/plans/gold-no-icon-logo.svg"
             />
             <br />
-            <Flex alignItems="center" justifyContent="space-between" border='1px' borderColor='gray.200' borderRadius="10px" py={3} px={1}>
+            <Flex
+              alignItems="center"
+              justifyContent="space-between"
+              border="1px"
+              borderColor="gray.200"
+              borderRadius="10px"
+              py={3}
+              px={1}
+            >
               <Box>
-                <Heading as='h3' size='lg' noOfLines={1}>₹{changePrice ? plan.price_month : plan.price_Year}</Heading>
+                <Heading as="h3" size="lg" noOfLines={1}>
+                  ₹{changePrice ? plan.price_month : plan.price_Year}
+                </Heading>
               </Box>
               <Box>
                 <UnorderedList>
@@ -313,8 +329,7 @@ closeForm();
                 name="plan"
                 value={plan.name}
                 onChange={handleInputChange}
-              >
-              </Input>
+              ></Input>
             </FormControl>
             <FormControl id="str_date" mt={0}>
               <FormLabel>Start Date</FormLabel>
@@ -346,15 +361,17 @@ closeForm();
               <Input placeholder="cvv" w="20%" />
             </FormControl>
             <Flex>
-              <Box onClick={() =>
-                toast({
-                  title: 'Payment Successfull.',
-                  // description: "We've created your account for you.",
-                  status: 'success',
-                  duration: 9000,
-                  isClosable: true,
-                })
-              }>
+              <Box
+                onClick={() =>
+                  toast({
+                    title: "Payment Successfull.",
+                    // description: "We've created your account for you.",
+                    status: "success",
+                    duration: 9000,
+                    isClosable: true,
+                  })
+                }
+              >
                 <Button type="submit" className="btn" onClick={handleSubmit}>
                   Pay Now
                 </Button>

@@ -1,0 +1,467 @@
+.listingSection{
+    flex-basis: 70%;
+}
+.heading{
+    width: 100%;
+    justify-content: space-between;
+}
+.heading>h1{
+    font-size: var(--h2FontSize);
+    color: var(--blackColor);
+    font-weight: 700;
+}
+.btn{
+    border:1px solid transparent;
+}
+.btn:hover{
+    border: 1px solid var(--PrimaryColor);
+}
+.secContainer{
+    width: 100%;
+    margin: 1.5rem 0;
+    column-gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    grid-template-rows: repeat(2,1fr); ;
+    row-gap: 1.5rem;
+}
+.singleItem{
+    position: relative;
+    width: 150px ;
+    height: 170px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    padding: 1rem;
+    border-radius: 10px;
+    background: var(--itemCardColor);
+}
+.singleItem:hover{
+    background: var(--itemCardHover);
+    box-shadow:0 2px var(--inputColor);
+}
+.singleItem>img{
+    max-width: 100px;
+}
+.singleItem>.icon{
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    color: var(--PrimaryColor);
+}
+.singleItem>h3{
+    font-size: var(--h3FontSize);
+    color: var(--blackColor);
+    padding: 1rem 0;
+}
+.sellers{
+    width: 100%;
+    justify-content: space-between;
+    gap: 1rem;
+    align-items: flex-start;
+    /* border: 1px solid green; */
+}
+.listingSection>.sellers>.topSellers>.heading{
+padding: 1rem 0;
+}
+.listingSection>.sellers>.topSellers>.btn{
+    padding: 5rem 1rem;
+}
+
+.card{
+    padding: 1rem;
+    border-radius: 1rem;
+    background: var(--whiteColor);
+    gap:1rem;
+    box-shadow: 0 2px 4px var(--inputColor);
+    /* border: 1px solid red; */
+}
+.users{
+    padding-right: 1rem;
+    border-right: 2px solid var(--greyText);
+}
+.users>img{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--inputColor);
+    transition: .5s ease;
+}
+.users>img:hover{
+    transform: translateY(-10px);
+}
+.cardText{
+    width: 10rem;
+}
+.cardText>span{
+    color: var(--blackColor);
+    font-weight: 500;
+}
+.cardText>span>small{
+    font-weight: 400;;
+}
+.date{
+    margin-left: 1rem;
+}
+
+@media screen and (max-width:990px){
+.card{
+        flex-direction: column;
+    }
+}
+@media screen and (max-width:918px){
+    .singleItem{
+       width: 200px !important;
+    }
+}
+
+@media screen and (max-width:490px){
+    .sellers{
+        flex-direction: column;
+    }
+    .card{
+        flex-direction: row;
+    }
+
+}
+.singleItem>img{
+    max-width: none;
+}
+
+/* fund   */
+.fund-card {
+    background-color: #ffcf3a; /* Change the background color to a golden yellow */
+    border-radius: 20px;
+    box-shadow:  0 10px 20px rgba(0, 0, 0, 0.2);
+    color: #fff;
+    padding: 30px;
+    text-align: center;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  .fund-card:before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-top: 20px solid #ffcf3a; /* Match the border color with the background color */
+    border-left: 20px solid transparent;
+    transition: transform 0.5s ease-out;
+  }
+  
+  .fund-card h2 {
+    color: #fff; /* Change the text color to white */
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0 0 10px;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .fund-card p {
+    color: #fff; /* Change the text color to white */
+    font-size: 50px;
+    font-weight: bold;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+  }
+  
+  @media (max-width: 768px) {
+    .fund-card p {
+      font-size: 38px;
+    }
+  }
+  .fund-card:hover {
+    transform: translateY(-10px); /* Add a translation effect when hovering */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); /* Add a stronger box shadow */
+  }
+  .fund-card:hover:before {
+    transform: rotate(45deg); 
+  }
+  .fund-card:hover h2,
+  .fund-card:hover p {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Add a text shadow when hovering */
+  }
+  @media (max-width: 600px) {
+    .fund-card {
+      padding: 20px;
+      max-width: 90%;
+    }
+    
+    .fund-card:before {
+      top: -15px;
+      right: 10%;
+    }
+    
+    .fund-card h2 {
+      font-size: 24px;
+    }
+    
+    .fund-card p {
+      font-size: 48px;
+    }
+    .secContainer{
+        grid-template-columns: repeat(1,1fr);
+    }
+  }
+  
+  /* gold  */
+  .gold-card {
+    background-color: #f0c36d; /* Set the background color */
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    color: #fff; /* Set the text color */
+    padding: 30px;
+    position: relative;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    transition: transform 0.3s ease-in-out; /* Add a transition effect to the transform property */
+  }
+  
+  .gold-card:before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-top: 20px solid #f0c36d; /* Match the border color with the background color */
+    border-left: 20px solid transparent;
+    transition: transform 0.5s ease-out; /* Add a transition effect to the transform property */
+  }
+  
+  .gold-card h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0 0 10px;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .gold-card p {
+    font-size: 50px;
+    font-weight: bold;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+  }
+  
+  @media (max-width: 768px) {
+    .gold-card p {
+      font-size: 38px;
+    }
+  }
+  
+  .gold-card:hover {
+    transform: translateY(-10px); /* Add a translation effect when hovering */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); /* Add a stronger box shadow */
+  }
+  
+  .gold-card:hover:before {
+    transform: rotate(45deg); /* Rotate the triangular shape when hovering */
+  }
+  
+  .gold-card:hover h2,
+  .gold-card:hover p {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Add a text shadow when hovering */
+  }
+  
+  @media (max-width: 600px) {
+    .gold-card {
+      padding: 20px;
+      max-width: 90%;
+    }
+    
+    .gold-card:before {
+      top: -15px;
+      right: 10%;
+    }
+    
+    .gold-card h2 {
+      font-size: 24px;
+    }
+    
+    .gold-card p {
+      font-size: 48px;
+    }
+  }
+
+  /* pro  */
+  .pro-card {
+    background-color: #5ebc8a; /* Set the background color */
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    color: #fff; /* Set the text color */
+    padding: 30px;
+    position: relative;
+    text-align: center;
+    width: 100%;
+    max-width: 300px;
+    height: 100%;
+    transition: transform 0.3s ease-in-out; /* Add a transition effect to the transform property */
+  }
+  
+  .pro-card:before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-top: 20px solid #5ebc8a; /* Match the border color with the background color */
+    border-left: 20px solid transparent;
+    transition: transform 0.5s ease-out; /* Add a transition effect to the transform property */
+  }
+  
+  .pro-card h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0 0 10px;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .pro-card p {
+    font-size: 50px;
+    font-weight: bold;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+  }
+  
+  @media (max-width: 768px) {
+    .pro-card p {
+      font-size: 38px;
+    }
+  }
+  
+  .pro-card:hover {
+    transform: translateY(-10px); /* Add a translation effect when hovering */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); /* Add a stronger box shadow */
+  }
+  
+  .pro-card:hover:before {
+    transform: rotate(45deg); /* Rotate the triangular shape when hovering */
+  }
+  
+  .pro-card:hover h2,
+  .pro-card:hover p {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Add a text shadow when hovering */
+  }
+  
+  @media (max-width: 600px) {
+    .pro-card {
+      padding: 20px;
+      max-width: 90%;
+    }
+    
+    .pro-card:before {
+      top: -15px;
+      right: 10%;
+    }
+    
+    .pro-card h2 {
+      font-size: 24px;
+    }
+    
+    .pro-card p {
+      font-size: 38px;
+    }
+  }
+
+  /* total user */
+  .total-card {
+    background-color: #2c3e50; /* Set the background color */
+    border-radius: 20px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    color: #fff; /* Set the text color */
+    padding: 30px;
+    position: relative;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    max-width: 300px;
+    transition: transform 0.3s ease-in-out; /* Add a transition effect to the transform property */
+  }
+  
+  .total-card:before {
+    content: "";
+    position: absolute;
+    top: -20px;
+    right: 0;
+    width: 0;
+    height: 0;
+    border-top: 20px solid #2c3e50; /* Match the border color with the background color */
+    border-left: 20px solid transparent;
+    transition: transform 0.5s ease-out; /* Add a transition effect to the transform property */
+  }
+  
+  .total-card h2 {
+    font-size: 28px;
+    font-weight: bold;
+    margin: 0 0 10px;
+    position: relative;
+    z-index: 1;
+  }
+  
+  .total-card p {
+    font-size: 50px;
+    font-weight: bold;
+    margin: 0;
+    position: relative;
+    z-index: 1;
+  }
+  
+  @media (max-width: 768px) {
+    .total-card p {
+      font-size: 38px;
+    }
+  }
+  
+  .total-card:hover {
+    transform: translateY(-10px); /* Add a translation effect when hovering */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3); /* Add a stronger box shadow */
+  }
+  
+  .total-card:hover:before {
+    transform: rotate(45deg); /* Rotate the triangular shape when hovering */
+  }
+  
+  .total-card:hover h2,
+  .total-card:hover p {
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3); /* Add a text shadow when hovering */
+  }
+  
+  @media (max-width: 600px) {
+    .total-card {
+      padding: 20px;
+      max-width: 90%;
+    }
+    
+    .total-card:before {
+      top: -15px;
+      right: 10%;
+    }
+    
+    .total-card h2 {
+      font-size: 24px;
+    }
+    
+    .total-card p {
+      font-size: 48px;
+    }
+  }
+  
+  

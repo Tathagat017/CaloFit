@@ -32,6 +32,7 @@ const LinkItems = [
   { name: "Foods", icon: FiCompass, title: "/foods" },
   { name: "Plans", icon: FiStar, title: "/plans" },
   { name: "Settings", icon: FiSettings, title: "/setting" },
+  { name: "About", icon: FiSettings, title: "/about" },
 ];
 
 export default function DashboardPage({ children }) {

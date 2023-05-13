@@ -1,0 +1,87 @@
+* {
+  padding: 0;
+  margin: 0;
+  font-family: sans-serif;
+}
+
+body {
+  background-color: #fffcf6;
+}
+
+.midBody {
+  width: 85%;
+  margin: auto;
+  padding-bottom: 25px;
+}
+
+.heading {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}
+
+.firstCart {
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 25px;
+  background-color: white;
+  border-radius: 8px;
+  margin-top: 25px;
+}
+
+.poftext {
+  width: 400px;
+  margin-top: 25px;
+  line-height: 25px;
+}
+
+.twofactor {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  justify-content: space-between;
+  width: 490px;
+  margin-top: 25px;
+}
+
+.lableOfinput {
+  margin-top: 25px;
+}
+
+input {
+  height: 40px;
+  width: 400px;
+  outline: none;
+}
+
+.btn {
+  border: none;
+  background-color: transparent;
+  color: rgb(128, 0, 62);
+  font-weight: bold;
+  margin-left: 20px;
+}
+
+.LOGOUTbTN {
+  border: none;
+  background-color: transparent;
+  color: green;
+  font-weight: bold;
+}
+
+.FORBOLD {
+  font-weight: bold;
+}
+
+.thiredDiv {
+  display: flex;
+  gap: 35px;
+  font-size: medium;
+  font-weight: bold;
+}
+
+select {
+  width: 120px;
+  height: 40px;
+  border-radius: 3px;
+  font-size: large;
+  padding: 5px;
+}

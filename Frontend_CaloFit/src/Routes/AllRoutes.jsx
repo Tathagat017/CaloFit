@@ -11,6 +11,9 @@ import AdminPage from "./../Pages/Admin/AdminPage";
 import HomePage from "../Pages/HomePage";
 import ProtectedRoute from "./ProtectedRoute";
 import NotFound from "../Pages/NotFound";
+import About from "./../Pages/AboutPage";
+
+import AccountSettings from "../Pages/SettingPage";
 
 const AllRoutes = () => {
   return (
@@ -18,6 +21,8 @@ const AllRoutes = () => {
       <Route path="/" element={<HomePage />} />
       <Route path="/signup" element={<SignUpPage />} />
       <Route path="/login" element={<LoginPage />} />
+      <Route path="/about" element={<About />} />
+      <Route path="/settings" element={<AccountSettings />} />
       <Route path="*" element={<NotFound />} />
       <Route
         path="/diary"
@@ -59,14 +64,7 @@ const AllRoutes = () => {
           </ProtectedRoute>
         }
       />
-      <Route
-        path="/admin"
-        element={
-          <ProtectedRoute>
-            <AdminPage />
-          </ProtectedRoute>
-        }
-      />
+      <Route path="/admin" element={<AdminPage />} />
     </Routes>
   );
 };

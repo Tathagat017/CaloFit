@@ -1,0 +1,77 @@
+#heading {
+  font-weight: 700;
+  text-decoration: none;
+  text-align: center;
+  vertical-align: middle;
+  background-color: aqua;
+  margin: 0;
+  padding: 1.5rem;
+}
+.userHead {
+  display: grid;
+  grid-template-columns: 20% 40% 40%;
+  border: 1px solid gray;
+  width: 100%;
+  text-align: center;
+}
+.single {
+  display: grid;
+  grid-template-columns: 20% 40% 40%;
+  border: 1px solid gray;
+  width: 100%;
+  text-align: center;
+  align-items: center;
+}
+.btn1 {
+  display: flex;
+  gap: 5%;
+  justify-content: center;
+  /* border: 1px solid red; */
+}
+.btn1 > button {
+  padding-left: 10px;
+  padding-top: 7px;
+  padding-right: 10px;
+  padding-bottom: 7px;
+  border-radius: 5px;
+  border: none;
+}
+.btn1 > button:first-child {
+  color: rgb(250, 248, 248);
+  background-color: rgb(192, 30, 30);
+}
+.btn1 > button:last-child {
+  color: rgb(250, 248, 248);
+  background-color: rgb(30, 192, 52);
+}
+#outeradmin {
+  background-color: #4a5568;
+  width: 100%;
+}
+#outeradmin p,
+#outeradmin h3 {
+  color: white;
+  /* border: 1px solid red; */
+}
+.btn2 > button {
+  padding-left: 10px;
+  padding-top: 7px;
+  padding-right: 10px;
+  padding-bottom: 7px;
+  border-radius: 5px;
+  border: none;
+}
+.btn2 > button:first-child {
+  color: rgb(250, 248, 248);
+  background-color: rgb(192, 30, 30);
+}
+.btn2 > button:last-child {
+  color: rgb(250, 248, 248);
+  background-color: rgb(30, 192, 52);
+}
+.btn2 {
+  display: flex;
+  gap: 5%;
+  justify-content: center;
+  /* border: 1px solid red; */
+}

@@ -32,7 +32,7 @@ import axios from "axios";
 const ProfPlan = () => {
   const [changePrice, setChangePrice] = useState(false);
   const [open, setOpen] = useState(false);
-  const[plans,setPlans]=useState("")
+  const [plans, setPlans] = useState("");
   const [isOpen, setIsOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -42,24 +42,32 @@ const ProfPlan = () => {
     end_date: "",
     // userId: "",
   });
-  const toast = useToast({ position: 'top' })
-  const afterOneYear=()=>{
+  const toast = useToast({ position: "top" });
+  const afterOneYear = () => {
     const currentDate = new Date(); // get the current date
-  const oneYearFromNow = new Date(currentDate.getFullYear() + 1, currentDate.getMonth(), currentDate.getDate()); // create a new date object for 1 year from now
-  return (oneYearFromNow.toISOString().slice(0, 10)); // log the date in ISO format (YYYY-MM-DD)
-  }
+    const oneYearFromNow = new Date(
+      currentDate.getFullYear() + 1,
+      currentDate.getMonth(),
+      currentDate.getDate()
+    ); // create a new date object for 1 year from now
+    return oneYearFromNow.toISOString().slice(0, 10); // log the date in ISO format (YYYY-MM-DD)
+  };
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData({ ...formData, [name]: value });
   };
   const openForm = () => {
-    const newData={...formData,str_date: new Date().toISOString().slice(0, 10),
-      end_date: (changePrice)?new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000)
-      .toISOString()
-      .slice(0, 10):afterOneYear(),
+    const newData = {
+      ...formData,
+      str_date: new Date().toISOString().slice(0, 10),
+      end_date: changePrice
+        ? new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000)
+            .toISOString()
+            .slice(0, 10)
+        : afterOneYear(),
       // userId: "",
     };
-    setFormData(newData)
+    setFormData(newData);
     setIsOpen(true);
   };
 
@@ -70,8 +78,10 @@ const ProfPlan = () => {
     e.preventDefault();
     console.log("Form submitted");
     console.log(formData);
-    axios.post('https://calofit-backend-deployment.onrender.com/userplan/add',formData).then(()=>console.log("post Success"))
-    .catch(err=>console.log(err))
+    axios
+      .post("https://calofitbackend.cyclic.app/userplan/add", formData)
+      .then(() => console.log("post Success"))
+      .catch((err) => console.log(err));
     closeForm();
   };
   const handleChangePrice = (state) => {
@@ -81,17 +91,18 @@ const ProfPlan = () => {
     setOpen(!open);
   };
   useEffect(() => {
-    axios.get('https://calofit-backend-deployment.onrender.com/plan').then(res=>setPlans(res.data))
+    axios
+      .get("https://calofitbackend.cyclic.app/plan")
+      .then((res) => setPlans(res.data));
   }, []);
   // console.log(plans)
-  let plan
-  if(plans){
-  plans.forEach(el =>{
-  if(el.name === "Pro"){
-    plan = el;
-  }
-  }
-  );
+  let plan;
+  if (plans) {
+    plans.forEach((el) => {
+      if (el.name === "Pro") {
+        plan = el;
+      }
+    });
   }
   // console.log(plan)
   return (
@@ -107,11 +118,11 @@ const ProfPlan = () => {
           />
           <br />
           <Text fontWeight={"bold"} fontSize={["13px", "15px", "20px"]}>
-          {plan? plan.tag:""}
+            {plan ? plan.tag : ""}
           </Text>
           <br />
           <UnorderedList fontSize={["10px", "13px", "17px"]}>
-          {plan? plan.features.map(el=><ListItem>{el}</ListItem>):""}
+            {plan ? plan.features.map((el) => <ListItem>{el}</ListItem>) : ""}
           </UnorderedList>
           <br />
           <Button
@@ -124,35 +135,37 @@ const ProfPlan = () => {
           </Button>
         </Box>
         <Box mt={["20px", "20px", "0px"]}>
-        {changePrice ? (
+          {changePrice ? (
             <>
-          <Text
-            fontSize={["l", "xl", "3xl"]}
-            fontWeight={"bold"}
-            textAlign={["left", "left", "right"]}
-          >
-            ₹{plan? plan.price_month:""}
-          </Text>
-          <Text fontSize={["10px", "13px", "17px"]}>RS per month-billed monthly</Text>
-          </>
-        ):(
-          <>
-          <Text
-            fontSize={["l", "xl", "3xl"]}
-            fontWeight={"bold"}
-            textAlign={["left", "left", "right"]}
-          >
-            ₹{plan? plan.price_Year:""}
-          </Text>
-          <Text
-            textAlign={["left", "left", "right"]}
-            fontSize={["10px", "13px", "17px"]}
-          >
-            RS per year-billed yearly
-          </Text>
-        </>
-      )}
-               <RadioGroup defaultValue="1">
+              <Text
+                fontSize={["l", "xl", "3xl"]}
+                fontWeight={"bold"}
+                textAlign={["left", "left", "right"]}
+              >
+                ₹{plan ? plan.price_month : ""}
+              </Text>
+              <Text fontSize={["10px", "13px", "17px"]}>
+                RS per month-billed monthly
+              </Text>
+            </>
+          ) : (
+            <>
+              <Text
+                fontSize={["l", "xl", "3xl"]}
+                fontWeight={"bold"}
+                textAlign={["left", "left", "right"]}
+              >
+                ₹{plan ? plan.price_Year : ""}
+              </Text>
+              <Text
+                textAlign={["left", "left", "right"]}
+                fontSize={["10px", "13px", "17px"]}
+              >
+                RS per year-billed yearly
+              </Text>
+            </>
+          )}
+          <RadioGroup defaultValue="1">
             <Stack spacing={5} direction="row">
               <Radio
                 onClick={() => handleChangePrice(false)}
@@ -242,94 +255,105 @@ const ProfPlan = () => {
         <Box></Box>
       )}
       {isOpen && (
-         <Box maxWidth="400px" mx="auto" className="form-popup">
-         <form onSubmit={handleSubmit} className="form-container">
-          <Image
-            w={["50%", "40%", "100%"]}
-            src="https://cdn1.cronometer.com/plans/pro-no-icon-logo.svg"
-          />
-          <br />
-          <Flex alignItems="center" justifyContent="space-between" border='1px' borderColor='gray.200' borderRadius="10px" py={3} px={1}>
-            <Box>
-            <Heading as='h3' size='lg' noOfLines={1}>₹{changePrice?plan.price_month:plan.price_Year}</Heading>
-            </Box>
-            <Box>
-            <UnorderedList>
-  <ListItem>10 clients included.</ListItem>
-</UnorderedList>
-            </Box>
-          </Flex>
-           <FormControl id="name" mt={0}>
-             <FormLabel>Name</FormLabel>
-             <Input
-               type="text"
-               name="name"
-               placeholder="Full Name"
-               value={formData.name}
-               onChange={handleInputChange}
-               />
-           </FormControl>
-   
-           <FormControl id="mo_no" mt={0}>
-             <FormLabel>Mobile Number</FormLabel>
-             <Input
-               type="tel"
-               name="mo_no"
-               placeholder="Mobile Number"
-               value={formData.mo_no}
-               onChange={handleInputChange}
-               />
-           </FormControl>
-   
-           <FormControl id="plan" mt={0}>
-             <FormLabel>Plan</FormLabel>
-             <Input
-               name="plan"
-               value={plan.name}
-               onChange={handleInputChange}
-               >
-             </Input>
-           </FormControl>   
-           <FormControl id="str_date" mt={0}>
-             <FormLabel>Start Date</FormLabel>
-             <Input
-               type="text"
-               name="str_date"
-               placeholder="Start Date"
-               value={formData.str_date}
-               onChange={handleInputChange}
-               />
-           </FormControl>
-   
-           <FormControl id="end_date" mt={0}>
-             <FormLabel>End Date</FormLabel>
-             <Input
-               type="text"
-               name="end_date"
-               placeholder="End Date"
-               value={formData.end_date}
-               onChange={handleInputChange}
-               />
-           </FormControl>
+        <Box maxWidth="400px" mx="auto" className="form-popup">
+          <form onSubmit={handleSubmit} className="form-container">
+            <Image
+              w={["50%", "40%", "100%"]}
+              src="https://cdn1.cronometer.com/plans/pro-no-icon-logo.svg"
+            />
+            <br />
+            <Flex
+              alignItems="center"
+              justifyContent="space-between"
+              border="1px"
+              borderColor="gray.200"
+              borderRadius="10px"
+              py={3}
+              px={1}
+            >
+              <Box>
+                <Heading as="h3" size="lg" noOfLines={1}>
+                  ₹{changePrice ? plan.price_month : plan.price_Year}
+                </Heading>
+              </Box>
+              <Box>
+                <UnorderedList>
+                  <ListItem>10 clients included.</ListItem>
+                </UnorderedList>
+              </Box>
+            </Flex>
+            <FormControl id="name" mt={0}>
+              <FormLabel>Name</FormLabel>
+              <Input
+                type="text"
+                name="name"
+                placeholder="Full Name"
+                value={formData.name}
+                onChange={handleInputChange}
+              />
+            </FormControl>
 
-      <FormControl>
-        <FormLabel>Credit Card Number</FormLabel>
-        <Input placeholder="card no" w="33%" />
-          <Input placeholder="MM" w="22%" />
-          <Input placeholder="YYYY" w="25%" />
-          <Input placeholder="cvv"w="20%" />
-        </FormControl>
+            <FormControl id="mo_no" mt={0}>
+              <FormLabel>Mobile Number</FormLabel>
+              <Input
+                type="tel"
+                name="mo_no"
+                placeholder="Mobile Number"
+                value={formData.mo_no}
+                onChange={handleInputChange}
+              />
+            </FormControl>
 
-        <Flex>
-              <Box onClick={() =>
-                toast({
-                  title: 'Payment Successfull.',
-                  // description: "We've created your account for you.",
-                  status: 'success',
-                  duration: 9000,
-                  isClosable: true,
-                })
-              }>
+            <FormControl id="plan" mt={0}>
+              <FormLabel>Plan</FormLabel>
+              <Input
+                name="plan"
+                value={plan.name}
+                onChange={handleInputChange}
+              ></Input>
+            </FormControl>
+            <FormControl id="str_date" mt={0}>
+              <FormLabel>Start Date</FormLabel>
+              <Input
+                type="text"
+                name="str_date"
+                placeholder="Start Date"
+                value={formData.str_date}
+                onChange={handleInputChange}
+              />
+            </FormControl>
+
+            <FormControl id="end_date" mt={0}>
+              <FormLabel>End Date</FormLabel>
+              <Input
+                type="text"
+                name="end_date"
+                placeholder="End Date"
+                value={formData.end_date}
+                onChange={handleInputChange}
+              />
+            </FormControl>
+
+            <FormControl>
+              <FormLabel>Credit Card Number</FormLabel>
+              <Input placeholder="card no" w="33%" />
+              <Input placeholder="MM" w="22%" />
+              <Input placeholder="YYYY" w="25%" />
+              <Input placeholder="cvv" w="20%" />
+            </FormControl>
+
+            <Flex>
+              <Box
+                onClick={() =>
+                  toast({
+                    title: "Payment Successfull.",
+                    // description: "We've created your account for you.",
+                    status: "success",
+                    duration: 9000,
+                    isClosable: true,
+                  })
+                }
+              >
                 <Button type="submit" className="btn" onClick={handleSubmit}>
                   Pay Now
                 </Button>
@@ -338,8 +362,8 @@ const ProfPlan = () => {
                 Close
               </Button>
             </Flex>
-         </form>
-       </Box>
+          </form>
+        </Box>
       )}
     </Box>
   );
