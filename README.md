@@ -40,8 +40,8 @@
 ---
 # Installation
 1. Clone the repository: `git clone https://github.com/your-username/cronometer.git`
-2. Install dependencies: npm install
-3. Start the development server: npm start
+2. Install dependencies: `npm install`
+3. Start the development server: `npm start`
 # Collaborators
 <ul>
 <li><a href='https://github.com/Tathagat017'>Tathagat</a></li>
