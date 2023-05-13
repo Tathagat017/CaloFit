@@ -13,7 +13,7 @@ A Clone of Cronometer Website
     "mongoose": "^7.1.0",
     "nodemon": "^2.0.22"
 
-<h2>Please npm i before working : Frontend : These packages are already adedd </h2>
+<h2>Please npm i before working : Frontend : These packages are already added </h2>
 
 
     @chakra-ui/react": "^2.6.1",
