@@ -24,7 +24,6 @@ import {
   UnorderedList,
 } from "@chakra-ui/react";
 import { useState } from "react";
-import data from "./priceData.json";
 import { CheckIcon, CloseIcon } from "@chakra-ui/icons";
 import axios from "axios";
 
@@ -41,6 +40,92 @@ const GoldPlan = () => {
     end_date: "",
     // userId: "",
   });
+  const dataView=[
+    {
+      "title": "Log foods, exercise, biometrics and notes",
+      "details": "",
+      "basic": true,
+      "gold": true
+    },
+    {
+      "title": "Track up to 84 nutrients and other compounds",
+      "details": "",
+      "basic": true,
+      "gold": true
+    },
+    {
+      "title": "Custom macro and micronutrient targets",
+      "details": "",
+      "basic": true,
+      "gold": true
+    },
+    {
+      "title": "Sync with apps and devices",
+      "details": "",
+      "basic": true,
+      "gold": true
+    },
+    {
+      "title": "Manually create custom foods and recipes",
+      "details": "",
+      "basic": true,
+      "gold": true
+    },
+    {
+      "title": "Export your data",
+      "details": "",
+      "basic": true,
+      "gold": true
+    },
+    {
+      "title": "No ads",
+      "details": "Just a clean, uninterrupted experience.",
+      "basic": false,
+      "gold": true
+    },
+    {
+      "title": "Recipe Importer",
+      "details": "Easily import recipes from your favorite websites.",
+      "basic": false,
+      "gold": true
+    },
+    {
+      "title": "Custom Biometrics",
+      "details": "Create your own biometrics outside of the ones we already offer to track.",
+      "basic": false,
+      "gold": true
+    },
+    {
+      "title": "More Insights",
+      "details": "View Charts and reports for all data entered into your diary.",
+      "basic": false,
+      "gold": true
+    },
+    {
+      "title": "Food Suggestions",
+      "details": "Gain valuable insight into which foods can help you meet your targets",
+      "basic": false,
+      "gold": true
+    },
+    {
+      "title": "Share Custom Food and Recipes",
+      "details": "Share your custom foods and recipes with your friends who use Cronometer.",
+      "basic": false,
+      "gold": true
+    },
+    {
+      "title": "Nutrient Oracle",
+      "details": "Discover top contributing foods of specific nutrients.",
+      "basic": false,
+      "gold": true
+    },
+    {
+      "title": "Print reports",
+      "details": "Create an easy to read PDF to share with your health professionals.",
+      "basic": false,
+      "gold": true
+    }
+  ]
   const toast = useToast({ position: 'top' })
   const afterOneYear = () => {
     const currentDate = new Date(); // get the current date
@@ -85,14 +170,6 @@ let token=localStorage.getItem("token")
   .catch(err => console.log(err))
 closeForm();
 };
-  //   axios.post('https://calofit-backend-deployment.onrender.com/userplan/add', formData,{
-  //     headers:{
-  //       'Authorization': Bearer token
-  //     }
-  //   }).then(() => console.log("post Success"))
-  //     .catch(err => console.log(err))
-  //   closeForm();
-  // };
   const handleChangePrice = (state) => {
     setChangePrice(state);
   };
@@ -237,7 +314,7 @@ closeForm();
               </Tr>
             </Thead>
             <Tbody>
-              {data.priceData.map((el) => {
+              {dataView.map((el) => {
                 return (
                   <Tr fontSize={["10px", "13px", "17px"]}>
                     <Td w="70%">

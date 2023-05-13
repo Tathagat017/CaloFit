@@ -9,6 +9,7 @@ import PlansPage from "../Pages/PlansPage";
 import SettingPage from "../Pages/SettingPage";
 import AdminPage from "./../Pages/Admin/AdminPage";
 import HomePage from "../Pages/HomePage";
+import AdminUsersPage from "../Pages/Admin/AdminUsersPage";
 
 const AllRoutes = () => {
   return (
@@ -22,6 +23,7 @@ const AllRoutes = () => {
       <Route path="/plans" element={<PlansPage />} />
       <Route path="/setting" element={<SettingPage />} />
       <Route path="/admin" element={<AdminPage />} />
+      <Route path="/admin/users" element={<AdminUsersPage />} />
     </Routes>
   );
 };

@@ -6,18 +6,19 @@ import FAQ from "./FAQ";
 import GiftSubscription from "./GiftSubscription";
 import axios from "axios";
 import ProfPlan from "./ProPlan";
-// import { SidebarContent } from "../../components/SidebarContent";
-// import { MobileNav } from "../../components/Siderbar";
 
 const Plans = () => {
   const[activePlan,setActivePlan]=useState("")
   let token=localStorage.getItem("token")
-  useEffect(()=>{
+  function getData(){
     axios.get('https://calofit-backend-deployment.onrender.com/userplan',{
       headers:{
         Authorization: `Bearer ${token}`,
        }
     }).then(res=>setActivePlan(res.data))
+  }
+  useEffect(()=>{
+   getData()
   },[])
   let data=activePlan[0]
   return (
@@ -27,7 +28,7 @@ const Plans = () => {
         Plans for Individuals
       </Text>
       <br />
-     {activePlan? <Flex gap="1%" border="1px solid gray" borderRadius={10} px="1%" borderColor="red">
+     {data? <Flex gap="1%" border="1px solid gray" borderRadius={10} px="1%" borderColor="red">
       <Text fontSize='3xl'>Current Plan:{data.plan}</Text>
       <Text fontSize='3xl'>Name:{data.name}</Text>
       <Text fontSize='3xl'>Mobile No:{data.mo_no}</Text>
