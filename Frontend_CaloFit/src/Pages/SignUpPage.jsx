@@ -38,7 +38,7 @@ import { Checkbox } from "@chakra-ui/react";
 //! TERMS AND CONDITIONS TO SIGN UP
 
 const Terms = ({ isDone, handleCheckbox }) => {
-  console.log(isDone);
+  // console.log(isDone);
   return (
     <div>
       <Box
@@ -90,11 +90,13 @@ const SignUpPage = () => {
     birthday: "",
     height: "",
     weight: "",
+    confirmpassword:""
   };
 
   const [state, setState] = useState(InitialState);
   const navigate = useNavigate();
   const [signed, setSigned] = useState(false);
+  // const [matchpassword, setMatchPassword] = useState(null)
   const handleChange = (e) => {
     const { name, value } = e.target;
     console.log(name, value);
@@ -112,7 +114,9 @@ const SignUpPage = () => {
     console.log(state);
     setState(InitialState);
   };
-
+ const passwordsMatch = state.password === state.confirmpassword;
+ 
+ console.log(passwordsMatch)
   return (
     <div style={{ backgroundColor: "#fffcf6" }}>
       <NavbarSignUp />
@@ -150,6 +154,7 @@ const SignUpPage = () => {
                         fontWeight="semibold"
                         fontSize="lg"
                         fontFamily={"Manrope"}
+                       
                       >
                         Name
                       </Text>
@@ -161,6 +166,7 @@ const SignUpPage = () => {
                       border="1px solid gray"
                       width={"60%"}
                       type="text"
+                       placeholder="Enter Your Full Name"
                     />
                   </Wrap>
 
@@ -181,6 +187,7 @@ const SignUpPage = () => {
                       border="1px solid gray"
                       width={"60%"}
                       type="email"
+                      placeholder="Enter Your Email Address"
                     />
                   </Wrap>
 
@@ -198,10 +205,11 @@ const SignUpPage = () => {
                     <Input
                       border="1px solid gray"
                       width={"60%"}
-                      type="password"
+                      type="text"
                       value={state.password}
                       name="password"
                       onChange={(e) => handleChange(e)}
+                      placeholder="Enter Your Strong password"
                     />
                   </Wrap>
 
@@ -219,14 +227,23 @@ const SignUpPage = () => {
                     <Input
                       border="1px solid gray"
                       width={"60%"}
-                      type="password"
+                      type="text"
+                      value={state.confirmpassword}
+                      name="confirmpassword"
+                      onChange={(e)=>handleChange(e)}
+                      placeholder="Confirm Your Password"
                     />
                   </Wrap>
+                   {state.password && !passwordsMatch ? (
+          <Text color="red" fontSize="sm">
+            Password do not match.
+          </Text>
+        ) : <Text></Text>}
                 </Box>
               </FormControl>
             </Flex>
 
-            {/* ------------------ Profile Details ------------------------------------------------------ */}
+            {/* -------- Profile Details ----- */}
 
             <Flex
               margin={"auto"}
@@ -275,7 +292,7 @@ const SignUpPage = () => {
                     </Flex>
                   </Stack>
                 </Wrap>
-                {/*--------------------------------BirthDay----------------------------------- */}
+                {/*--------BirthDay-------- */}
                 <Wrap mb="8">
                   <FormLabel width={"30%"}>
                     <Text
@@ -287,12 +304,13 @@ const SignUpPage = () => {
                     </Text>
                   </FormLabel>
                   <Input
+                  type="date"
                     onChange={(e) => handleChange(e)}
                     name="birthday"
                     value={state.birthday}
                   />
                 </Wrap>
-                {/* ------------------------------------Height------------------------------------------------------------------ */}
+                {/* -------Height------*/}
                 <Wrap mb="8">
                   <FormLabel width={"30%"}>
                     <Text
@@ -307,9 +325,10 @@ const SignUpPage = () => {
                     onChange={(e) => handleChange(e)}
                     name="height"
                     value={state.height}
+                    placeholder="Your Height in Centimeter"
                   />
                 </Wrap>
-                {/* ------------------------------Weight--------------------------------------------------------- */}
+                {/* --------Weight--------*/}
 
                 <Wrap>
                   <FormLabel width={"30%"}>
@@ -326,12 +345,13 @@ const SignUpPage = () => {
                     onChange={(e) => handleChange(e)}
                     name="weight"
                     value={state.weight}
+                    placeholder="Your Weight in Kilograms"
                   />
                 </Wrap>
               </FormControl>
             </Flex>
 
-            {/* ------------------------Terms & Conditions-------------------------------------------- */}
+            {/*------Terms & Conditions--------*/}
             <Terms isDone={signed} handleCheckbox={setSigned} />
 
             <Button
@@ -363,6 +383,7 @@ const SignUpPage = () => {
           </Box>
         </form>
       </Box>
+
       <Footer />
     </div>
   );

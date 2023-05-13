@@ -21,6 +21,7 @@ export default function Exercise({onData}) {
   const [state, setState] = useState(Initial)
   const [ObjectData, setObjectData] = useState({})
   const [linkData, setLinkData] = useState()
+  const [onlyArray, setOnlyArray] = useState()
   var Token;
   Token = localStorage.getItem("token")
   onData(ObjectData)
@@ -57,7 +58,8 @@ const GetRequestForExercise = () =>{
     }
   }).then((res)=>{
     setObjectData(res.data.users_data)
-    console.log(res.data.users_data.excercise_done)
+    setOnlyArray(res.data.users_data.excercise_done)
+    console.log(res.data.users_data.excercise_done, "GetRequestForExercise")
   })
   .catch((err)=>console.log("Error from GetRequestForExercise", err))
 }
@@ -84,14 +86,16 @@ const PostRequestForExercise = (data) =>{
 // PathchRequestForExercise
 
 const patchRequestForExercise = async(data) =>{
- 
-object.excercise_done.push(data)
-
-  // console.log(object)
+  setOnlyArray((pre)=>({...pre, data}))
+  console.log(setOnlyArray)
+ console.log(object.excercise_done)
+// object.excercise_done.push(data)
+//  GetRequestForExercise()
+  // console.log(object, "Object")
  onData(object)
 
  try {
-  GetRequestForExercise()
+ 
  axios.patch( `${process.env.REACT_APP_BACKEND_KEY}/nutrition/update`,object, 
   {
   headers: {Authorization: `Bearer ${Token}`,}

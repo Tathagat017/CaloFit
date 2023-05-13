@@ -10,14 +10,21 @@ import { useSelector } from "react-redux";
 const DairyBox = () => {
    const [dataFromChild, setDataFromChild] = useState(null);
    const [exerciseData, setExerciseData] = useState(null)
+   const [NoteFromChid, setNoteFromChild] = useState(null)
+  const [Notemy, setNote] = useState(null)
   
-  const handleDataFromChild = (data) => {
+  const handleNoteFromChild = (data) =>{
+    setNoteFromChild(data)
+    // console.log(NoteFromChid)
+  }
+  
+   const handleDataFromChild = (data) => {
     setDataFromChild(data.kcal_consumed_eaten);
   };
 
   const handleExerciseChild = (data) =>{
     setExerciseData(data.excercise_done)
-    console.log(exerciseData, "this is exercise")
+    // console.log(exerciseData, "this is exercise")
   }
 
 const token = useSelector((store) => store.authreducer.token);
@@ -38,13 +45,32 @@ const token = useSelector((store) => store.authreducer.token);
         }
       )
       .then((res) => {
-        console.log(res.data.users_data.kcal_consumed_eaten, "What is this");
+        // console.log(res.data.users_data.kcal_consumed_eaten, "What is this");
         setDataFromChild(res.data.users_data.kcal_consumed_eaten);
       })
       .catch((err) => console.log("Error In getRequest,", err));
   };
- useEffect(()=>{
+
+  // NoteGetRequest
+
+  const NoteGetRequest = () =>{
+    axios.get(`${process.env.REACT_APP_BACKEND_KEY}notes`,
+    {
+          headers: {
+            Authorization: `Bearer ${Token}`,
+          },
+        }
+    )
+    .then((res)=> setNote(res.data))
+  }
+
+useEffect(()=>{
+NoteGetRequest()
+}, [NoteFromChid])
+
+useEffect(()=>{
     GetRequest()
+    
   },[])
 
 
@@ -55,7 +81,7 @@ const token = useSelector((store) => store.authreducer.token);
       <Box  >
       <FoodBox  onData={handleDataFromChild} />
       <Exercise onData={handleExerciseChild} />
-      <Note/>
+      <Note   onData={handleNoteFromChild} />
       <Fast/>
       </Box>
      <Box>
@@ -81,6 +107,29 @@ const token = useSelector((store) => store.authreducer.token);
        })
       }
       
+      </Box>
+      {/* Notedata */}
+      <Box>
+{
+  Notemy ?.map((el)=>{
+     return <Flex 
+       key={Date.now()+"el.food.name"+Math.random()}
+       _hover={{
+        bg:"#f0f2fa"
+       }}
+          fontSize={"sm"} 
+          bg="#fafbff"
+         
+          border={"1px solid #eff0f4"} 
+          p="1" 
+          m="2" 
+          justifyContent={"space-between"} > 
+          <Text> {el.title}  </Text> 
+          <Text>{el.body} kcl </Text> 
+         
+       </Flex>
+  })
+}
       </Box>
       </Box>
      

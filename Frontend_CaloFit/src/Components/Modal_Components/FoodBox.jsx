@@ -199,8 +199,10 @@ onData(Arraydata)
     setArrayData((Arraydata.kcal_consumed_eaten = OnlyArray));
      onData(Arraydata)
     console.log(Arraydata, "Here is ArrayData.........");
+    
+    
     axios.patch(
-      `${process.env.REACT_APP_BACKEND_KEY}/nutrition/update`,
+      `${process.env.REACT_APP_BACKEND_KEY}nutrition/update`,
       Arraydata,
       {
         headers: {
@@ -231,7 +233,7 @@ onData(Arraydata)
     };
     axios
       .post(
-        `${process.env.REACT_APP_BACKEND_KEY}/nutrition/add`,
+        `${process.env.REACT_APP_BACKEND_KEY}nutrition/add`,
         object,
         {
           headers: {
@@ -261,7 +263,7 @@ onData(Arraydata)
   const GetRequest = () => {
     axios
       .get(
-        `${process.env.REACT_APP_BACKEND_KEY}/nutrition/getuserdata`,
+        `${process.env.REACT_APP_BACKEND_KEY}nutrition/getuserdata`,
         {
           headers: {
             Authorization: `Bearer ${Token}`,

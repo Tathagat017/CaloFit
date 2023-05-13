@@ -6,6 +6,7 @@ import { Box, Grid } from "@chakra-ui/react";
 import NutritionChart from "./../Components/DashboardPage_Components/NutritionChart";
 import DonutChart from "./../Components/DashboardPage_Components/DonutChart";
 import { Wrap, WrapItem, Center } from "@chakra-ui/react";
+import DairyShow from "../Components/DashboardPage_Components/DairyToShow";
 const DairyPage = () => {
   const donut = [
     {
@@ -98,6 +99,7 @@ const DairyPage = () => {
           </WrapItem>
         </Wrap> */}
       </Box>
+      <DairyShow/>
     </DashboardPage>
   );
 };
