@@ -29,15 +29,23 @@ export default function LoginPage() {
   const state = useSelector((store) => store.authreducer);
   const dispatch = useDispatch();
 
-  const handleSubmit = () => {
-    const userData = { email, password };
-    if (email.includes("admin") && password.includes("admin")) {
-      return navigate("/admin");
-    }
-    dispatch(login(userData)).then((res) => navigate("/diary"));
-    setEmail("");
-    setPassword("");
-  };
+ const handleSubmit = () => {
+  const userData = { email, password };
+  if (email.includes("admin") && password.includes("admin")) {
+    return navigate("/admin");
+  }
+  dispatch(login(userData)).then((res) => {
+    navigate("/diary")
+    console.log(res)
+    // if (res && res.status === "success") {
+    //   alert("Success! You have logged in.");
+    // } else {
+    //   alert("Incorrect email or password. Please try again.");
+    // }
+  });
+  setEmail("");
+  setPassword("");
+};
   console.log(state);
   return (
     <Box>
