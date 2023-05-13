@@ -39,7 +39,7 @@
 ![image](https://github.com/UmaSahni/JS101_Learning_Javascript/assets/112793743/c67906c5-7c12-4808-abef-cd69619248cb)
 ---
 # Installation
-1. Clone the repository: git clone https://github.com/your-username/cronometer.git
+1. Clone the repository: `git clone https://github.com/your-username/cronometer.git`
 2. Install dependencies: npm install
 3. Start the development server: npm start
 # Collaborators
