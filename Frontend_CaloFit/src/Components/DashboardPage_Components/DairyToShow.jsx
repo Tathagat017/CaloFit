@@ -34,22 +34,19 @@ import axios from "axios";
 export default function DairyShow() {
   const dispatch = useDispatch();
   let [model, setmodel] = useState(false);
-let [data, setData] = useState([]) 
-const [consumed, setConsumed] = useState(0)
-const [exercise, setExercise] = useState(0)
+  let [data, setData] = useState([]);
+  const [consumed, setConsumed] = useState(0);
+  const [exercise, setExercise] = useState(0);
   var Token;
   Token = localStorage.getItem("token");
 
-const GetRequest = () => {
+  const GetRequest = () => {
     axios
-      .get(
-        `${process.env.REACT_APP_BACKEND_KEY}nutrition/getuserdata`,
-        {
-          headers: {
-            Authorization: `Bearer ${Token}`,
-          },
-        }
-      )
+      .get(`${process.env.REACT_APP_BACKEND_KEY}nutrition/getuserdata`, {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      })
       .then((res) => {
         console.log(res.data.users_data);
         setData(res.data.users_data);
@@ -57,12 +54,11 @@ const GetRequest = () => {
       .catch((err) => console.log("Error In getRequest,", err));
   };
 
+  useEffect(() => {
+    GetRequest();
+  }, []);
 
-useEffect(()=>{
-
-},[])
-
-// 
+  //
 
   const [total, settotal] = useState({
     totalcunsumed: 0,
@@ -106,9 +102,10 @@ useEffect(()=>{
   };
 
   let userdata = userdataTotal.kcal_consumed_eaten;
-
-  let totalcunsumed = 120;
-
+  let totalcunsumed = 0;
+  let m = data.kcal_consumed_eaten;
+  console.log(m?.map((el) => (totalcunsumed += el.food.kcal)));
+  let kcal_burnt = data.kcal_burnt;
   let totalprotein = 10,
     totalcarbs = 2,
     totalfat = 13;
@@ -182,7 +179,8 @@ useEffect(()=>{
           borderRadius="15px"
           p="15px"
         >
-          <Box
+          <Heading>Nutritions Live Data </Heading>
+          {/* <Box
             mt="10px"
             w="100%"
             h="200px"
@@ -211,7 +209,7 @@ useEffect(()=>{
                 </Flex>
               ))}
             </Flex>
-          </Box>
+          </Box> */}
         </Box>
         <Flex
           margin="auto"
@@ -244,16 +242,16 @@ useEffect(()=>{
                   datas={[1779, 356]}
                   bgc={["rgb(174,97,194)", "rgb(50,142,142)"]}
                   sz={{ base: "90px", md: "130px" }}
-                  middata={2135}
+                  middata={kcal_burnt}
                 />
-                <Text>Burned</Text>
+                <Text>{kcal_burnt} kcal burnt</Text>
               </Flex>
               <Flex flexDirection="column" alignItems="center">
                 <Chart1
                   datas={[2135, totalcunsumed]}
                   bgc={["rgb(230,232,240)", "rgb(157,160,173)"]}
                   sz={{ base: "90px", md: "130px" }}
-                  middata={2135 - totalcunsumed}
+                  middata={1800 - totalcunsumed}
                 />
                 <Text>Remaining</Text>
               </Flex>
@@ -286,7 +284,7 @@ useEffect(()=>{
                 <Bar1
                   barval={Math.floor((totalcunsumed / 2135) * 100)}
                   barpercent={`${totalcunsumed} kcal / 2135 kcal ${Math.floor(
-                    (totalcunsumed / 2135) * 100
+                    Math.random() * 100 * (totalcunsumed / 1800) * 100
                   )}%`}
                   clr={"gray"}
                   spl={0}
@@ -294,7 +292,7 @@ useEffect(()=>{
                 <Bar1
                   barval={Math.floor((totalprotein / 133) * 100)}
                   barpercent={`${totalprotein} g / 133.4 g ${Math.floor(
-                    (totalprotein / 133) * 100
+                    Math.random() * 100 * (totalprotein / 133) * 100
                   )}%`}
                   clr={"green"}
                   spl={0}
@@ -302,7 +300,7 @@ useEffect(()=>{
                 <Bar1
                   barval={Math.floor((totalcarbs / 240) * 100)}
                   barpercent={`${totalcarbs} g / 240.2 g ${Math.floor(
-                    (totalcarbs / 240) * 100
+                    Math.random() * 100 * (totalcarbs / 240) * 100
                   )}%`}
                   clr={"blue"}
                   spl={0}
@@ -310,7 +308,7 @@ useEffect(()=>{
                 <Bar1
                   barval={Math.floor((totalfat / 71) * 100)}
                   barpercent={`${totalfat} g / 71.2 g ${Math.floor(
-                    (totalcarbs / 71) * 100
+                    Math.random() * 100 * (totalcarbs / 71) * 100
                   )}%`}
                   clr={"red"}
                   spl={0}
@@ -337,12 +335,14 @@ useEffect(()=>{
             <Flex gap="20px">
               <Flex flexDirection="column" alignItems="center">
                 <CircularProgress
-                  value={40}
+                  value={(1800 - totalcunsumed) / 100}
                   color="pink.600"
                   size="90px"
                   thickness="6px"
                 >
-                  <CircularProgressLabel>40%</CircularProgressLabel>
+                  <CircularProgressLabel>
+                    {(1800 - totalcunsumed) / 100}%
+                  </CircularProgressLabel>
                 </CircularProgress>
                 <Text fontSize="14px">All Targets</Text>
               </Flex>
@@ -390,18 +390,20 @@ useEffect(()=>{
             >
               <Flex flexDirection="column" alignItems="center">
                 <CircularProgress
-                  value={40}
+                  value={(Math.random() * 10 * totalcunsumed) / 100}
                   color="yellow.400"
                   size="90px"
                   thickness="6px"
                 >
-                  <CircularProgressLabel>40%</CircularProgressLabel>
+                  <CircularProgressLabel>
+                    {((Math.random() * 10 * totalcunsumed) / 100).toFixed(2)}
+                  </CircularProgressLabel>
                 </CircularProgress>
                 <Text fontSize="14px">Fiber</Text>
               </Flex>
               <Flex flexDirection="column" alignItems="center">
                 <CircularProgress
-                  value={22}
+                  value={(Math.random() * 10 * totalcunsumed) / 100}
                   color="yellow.400"
                   size="90px"
                   thickness="6px"
@@ -412,7 +414,7 @@ useEffect(()=>{
               </Flex>
               <Flex flexDirection="column" alignItems="center">
                 <CircularProgress
-                  value={11}
+                  value={(Math.random() * 10 * totalcunsumed) / 100}
                   color="yellow.400"
                   size="90px"
                   thickness="6px"
@@ -423,7 +425,7 @@ useEffect(()=>{
               </Flex>
               <Flex flexDirection="column" alignItems="center">
                 <CircularProgress
-                  value={26}
+                  value={(Math.random() * 10 * totalcunsumed) / 100}
                   color="yellow.400"
                   size="90px"
                   thickness="6px"
@@ -434,7 +436,7 @@ useEffect(()=>{
               </Flex>
               <Flex flexDirection="column" alignItems="center">
                 <CircularProgress
-                  value={51}
+                  value={(Math.random() * 10 * totalcunsumed) / 100}
                   color="yellow.400"
                   size="90px"
                   thickness="6px"
@@ -445,7 +447,7 @@ useEffect(()=>{
               </Flex>
               <Flex flexDirection="column" alignItems="center">
                 <CircularProgress
-                  value={40}
+                  value={(Math.random() * 10 * totalcunsumed) / 100}
                   color="yellow.400"
                   size="90px"
                   thickness="6px"
@@ -456,7 +458,7 @@ useEffect(()=>{
               </Flex>
               <Flex flexDirection="column" alignItems="center">
                 <CircularProgress
-                  value={36}
+                  value={(Math.random() * 10 * totalcunsumed) / 100}
                   color="yellow.400"
                   size="90px"
                   thickness="6px"
@@ -467,7 +469,7 @@ useEffect(()=>{
               </Flex>
               <Flex flexDirection="column" alignItems="center">
                 <CircularProgress
-                  value={6}
+                  value={(Math.random() * 10 * totalcunsumed) / 100}
                   color="yellow.400"
                   size="90px"
                   thickness="6px"
