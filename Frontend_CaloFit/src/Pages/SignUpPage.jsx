@@ -80,7 +80,7 @@ const Terms = ({ isDone, handleCheckbox }) => {
 };
 
 //*  Signup Page begins here
-
+let url = "https://calofitbackend.cyclic.app/";
 const SignUpPage = () => {
   const InitialState = {
     name: "",
@@ -90,7 +90,7 @@ const SignUpPage = () => {
     birthday: "",
     height: "",
     weight: "",
-    confirmpassword:""
+    confirmpassword: "",
   };
 
   const [state, setState] = useState(InitialState);
@@ -105,18 +105,16 @@ const SignUpPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post(`${process.env.REACT_APP_BACKEND_KEY}/users/register`, state)
-      .then((res) => {
-        console.log(res);
-        navigate("/login");
-      });
+    axios.post(`${url}users/register`, state).then((res) => {
+      console.log(res);
+      navigate("/login");
+    });
     console.log(state);
     setState(InitialState);
   };
- const passwordsMatch = state.password === state.confirmpassword;
- 
- console.log(passwordsMatch)
+  const passwordsMatch = state.password === state.confirmpassword;
+
+  console.log(passwordsMatch);
   return (
     <div style={{ backgroundColor: "#fffcf6" }}>
       <NavbarSignUp />
@@ -154,7 +152,6 @@ const SignUpPage = () => {
                         fontWeight="semibold"
                         fontSize="lg"
                         fontFamily={"Manrope"}
-                       
                       >
                         Name
                       </Text>
@@ -166,7 +163,7 @@ const SignUpPage = () => {
                       border="1px solid gray"
                       width={"60%"}
                       type="text"
-                       placeholder="Enter Your Full Name"
+                      placeholder="Enter Your Full Name"
                     />
                   </Wrap>
 
@@ -230,15 +227,17 @@ const SignUpPage = () => {
                       type="text"
                       value={state.confirmpassword}
                       name="confirmpassword"
-                      onChange={(e)=>handleChange(e)}
+                      onChange={(e) => handleChange(e)}
                       placeholder="Confirm Your Password"
                     />
                   </Wrap>
-                   {state.password && !passwordsMatch ? (
-          <Text color="red" fontSize="sm">
-            Password do not match.
-          </Text>
-        ) : <Text></Text>}
+                  {state.password && !passwordsMatch ? (
+                    <Text color="red" fontSize="sm">
+                      Password do not match.
+                    </Text>
+                  ) : (
+                    <Text></Text>
+                  )}
                 </Box>
               </FormControl>
             </Flex>
@@ -304,7 +303,7 @@ const SignUpPage = () => {
                     </Text>
                   </FormLabel>
                   <Input
-                  type="date"
+                    type="date"
                     onChange={(e) => handleChange(e)}
                     name="birthday"
                     value={state.birthday}

@@ -34,11 +34,13 @@ import { FaAppleAlt } from "react-icons/fa";
 import { useSelector } from "react-redux";
 import DonutChart from "./../DashboardPage_Components/DonutChart";
 
-export default function FoodBox({onData}) {
+export default function FoodBox({ onData }) {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [linkData, setLinkData] = useState();
   const [Arraydata, setArrayData] = useState([]);
   let [selectedFood, setSelectedFood] = useState({});
+
+  let url = "https://calofitbackend.cyclic.app/";
   let initialDonutData = [
     {
       name: "kcal",
@@ -92,7 +94,7 @@ export default function FoodBox({onData}) {
     },
   ];
   const [donutData, setDonutData] = useState(initialDonutData);
-  
+
   useEffect(() => {
     setDonutData(initialDonutData);
   }, [isOpen]);
@@ -103,41 +105,41 @@ export default function FoodBox({onData}) {
   const [toggle, setToggle] = useState(true);
   Token = localStorage.getItem("token");
 
-onData(Arraydata)
+  onData(Arraydata);
 
   const data = [
     {
       name: "Fruits",
       icon: "https://cdn-icons-png.flaticon.com/512/1147/1147832.png",
-      link: `${process.env.REACT_APP_BACKEND_KEY}/food/fruits`,
+      link: `${url}food/fruits`,
       type: "fruits",
     },
     {
       name: "Vegetables",
       icon: "https://cdn-icons-png.flaticon.com/512/5346/5346571.png",
-      link: `${process.env.REACT_APP_BACKEND_KEY}/food/vegetable`,
+      link: `${url}food/vegetable`,
       type: "vegetables",
     },
     {
       name: "Meats",
       icon: "https://cdn-icons-png.flaticon.com/512/4336/4336872.png",
-      link: `${process.env.REACT_APP_BACKEND_KEY}/food/meat`,
+      link: `${url}food/meat`,
       type: "meats",
     },
     {
       name: "Recipes",
       icon: "https://cdn-icons-png.flaticon.com/512/1790/1790457.png",
-      link: `${process.env.REACT_APP_BACKEND_KEY}/food/recipes`,
+      link: `${url}food/recipes`,
       type: "recipes",
     },
     {
       name: "Dairy",
       icon: "https://cdn-icons-png.flaticon.com/512/2174/2174676.png",
-      link: `${process.env.REACT_APP_BACKEND_KEY}/food/dairy`,
+      link: `${url}food/dairy`,
       type: "dairys",
     },
   ];
- 
+
   const handleClick = (link, type) => {
     axios.get(link).then((res) => setLinkData(res.data[type]));
     setToggle(false);
@@ -155,7 +157,7 @@ onData(Arraydata)
   };
 
   // console.log(object.kcal_consumed_eaten)
- 
+
   // Patch Request
   const patchRequestWithFoodObject = async (el) => {
     let new_mapped = [...donutData];
@@ -197,18 +199,17 @@ onData(Arraydata)
     const OnlyArray = Arraydata.kcal_consumed_eaten;
     console.log(OnlyArray, "This is only array");
     setArrayData((Arraydata.kcal_consumed_eaten = OnlyArray));
-     onData(Arraydata)
+    onData(Arraydata);
     console.log(Arraydata, "Here is ArrayData.........");
-    
-    
-    axios.patch(
-      `${process.env.REACT_APP_BACKEND_KEY}nutrition/update`,
-      Arraydata,
-      {
+
+    axios
+      .patch(`${url}nutrition/update`, Arraydata, {
         headers: {
           Authorization: `Bearer ${Token}`,
         },
-      }).then((res)=> GetRequest()).catch((err)=>console.log("Error from PatchRequest", err))
+      })
+      .then((res) => GetRequest())
+      .catch((err) => console.log("Error from PatchRequest", err));
   };
 
   // postRequestWithFoodObject
@@ -232,15 +233,11 @@ onData(Arraydata)
       quantity: 1,
     };
     axios
-      .post(
-        `${process.env.REACT_APP_BACKEND_KEY}nutrition/add`,
-        object,
-        {
-          headers: {
-            Authorization: `Bearer ${Token}`,
-          },
-        }
-      )
+      .post(`${url}nutrition/add`, object, {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      })
       .then((res) => {
         console.log(res);
         return res;
@@ -255,28 +252,23 @@ onData(Arraydata)
   const handleAddToDairy = (el) => {
     postRequestWithFoodObject(el);
     setSelectedFood(el);
-   
   };
-
 
   // GetRequest
   const GetRequest = () => {
     axios
-      .get(
-        `${process.env.REACT_APP_BACKEND_KEY}nutrition/getuserdata`,
-        {
-          headers: {
-            Authorization: `Bearer ${Token}`,
-          },
-        }
-      )
+      .get(`${url}nutrition/getuserdata`, {
+        headers: {
+          Authorization: `Bearer ${Token}`,
+        },
+      })
       .then((res) => {
         console.log(res.data.users_data);
         setArrayData(res.data.users_data);
       })
       .catch((err) => console.log("Error In getRequest,", err));
   };
- 
+
   const donut = [
     {
       name: "kcal",
@@ -329,14 +321,13 @@ onData(Arraydata)
       value: 8,
     },
   ];
- // console.log("this is current item", linkData);
- 
-useEffect(()=>{
-    GetRequest()
-  },[setArrayData])
+  // console.log("this is current item", linkData);
 
+  useEffect(() => {
+    GetRequest();
+  }, [setArrayData]);
 
- return (
+  return (
     <>
       <Button
         leftIcon={<FaAppleAlt />}
@@ -495,7 +486,6 @@ useEffect(()=>{
               {" "}
               <Text onClick={() => setToggle(true)}>Save</Text>{" "}
             </Button>
-           
           </ModalFooter>
         </ModalContent>
       </Modal>

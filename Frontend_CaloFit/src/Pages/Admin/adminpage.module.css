@@ -1,0 +1,89 @@
+:root {
+  --PrimaryColor: #2d3748;
+  --HoverColor: #4a5568;
+  --paleGreen: hsl(96, 75%, 89%);
+  --whiteColor: hsl(0, 0%, 100%);
+  --blackColor: hsl(0, 0%, 18%);
+  --textColor: hsl(240, 1%, 48%);
+  --bgColor: hsl(220, 10%, 94%);
+  --greyText: rgb(190, 190, 190);
+  --inputColor: hsl(330, 12%, 97%);
+  --biggestFontSize: 2.5rem;
+  --h1FontSize: 1.5rem;
+  --h2FontSize: 1.25rem;
+  --h3FontSize: 1rem;
+  --normalFontSize: 0.938rem;
+  --smallFontSize: 0.813rem;
+  --smallestFontSize: 0.75rem;
+}
+html {
+  font-size: 90%;
+}
+a {
+  text-decoration: none;
+}
+li {
+  list-style: none;
+}
+.icon {
+  font-size: var(--h2FontSize);
+  cursor: pointer;
+}
+img {
+  width: 100%;
+  height: auto;
+}
+.flex {
+  display: flex;
+  align-items: center;
+}
+.grid {
+  display: grid;
+  align-items: center;
+  gap: 1.5rem;
+}
+.btn {
+  border: none;
+  outline: none;
+  cursor: pointer;
+  border-radius: 8px;
+  padding: 0.8rem 1rem;
+  box-shadow: 0 2px 4px var(--inputColor);
+  padding: 0.8rem 1rem;
+  color: var(--textColor);
+}
+
+.btn .icon {
+  margin-left: 0.5rem;
+}
+.btn:hover {
+  background: var(--paleGreen);
+  color: var(--Primary Cilor);
+}
+
+.adminContainer {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bgColor);
+  overflow: hidden;
+  border-radius: 1rem;
+  box-shadow: 2px 2px 8px var(--greyText);
+  /* border: 10px solid red; */
+  /* margin: -200px; */
+}
+
+::-webkit-scrollbar {
+  display: none;
+}
+
+@media screen and (max-width: 990px) {
+  .headiing {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+}

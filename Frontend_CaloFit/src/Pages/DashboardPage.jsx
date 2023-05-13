@@ -1,4 +1,5 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import {
   IconButton,
   Box,
@@ -22,16 +23,23 @@ import {
   FiMenu,
 } from "react-icons/fi";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
 import { FiLogOut } from "react-icons/fi";
+import { handleLogoutRedux } from "../Redux/AuthReducer/action";
 const LinkItems = [
   { name: "Dashboard", icon: FiHome, title: "/dashboard" },
   { name: "Diary", icon: FiTrendingUp, title: "/diary" },
   { name: "Foods", icon: FiCompass, title: "/foods" },
   { name: "Plans", icon: FiStar, title: "/plans" },
   { name: "Settings", icon: FiSettings, title: "/setting" },
+  { name: "About", icon: FiSettings, title: "/about" },
 ];
 
 export default function DashboardPage({ children }) {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const store = useSelector((state) => state.authreducer);
+  const { auth, token } = store;
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
     <Box minH="100vh" bg={"#fffcf6"}>
@@ -64,7 +72,18 @@ export default function DashboardPage({ children }) {
         display={"flex"}
       >
         {/* <Text fontSize={"larger"} fontWeight={"semibold"}  alignItems={"center"} padding={"2"} textAlign={"right"} >Account</Text> */}
-        <Button variant="outline" position={"right"} rightIcon={<FiLogOut />}>
+        <Button
+          onClick={() => {
+            dispatch(handleLogoutRedux());
+
+            localStorage.setItem("token", "");
+
+            navigate("/login");
+          }}
+          variant="outline"
+          position={"right"}
+          rightIcon={<FiLogOut />}
+        >
           Logout
         </Button>
       </Box>
@@ -88,7 +107,10 @@ const SidebarContent = ({ onClose, ...rest }) => {
       {...rest}
     >
       <Flex h="20" alignItems="center" mx="8" justifyContent="space-between">
-        <Image src="calofit-white.png" />
+        <Link to="/">
+          {" "}
+          <Image src="calofit-white.png" />
+        </Link>
         <CloseButton display={{ base: "flex", md: "none" }} onClick={onClose} />
       </Flex>
       {LinkItems.map((link) => (
