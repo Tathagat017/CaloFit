@@ -31,7 +31,7 @@ import { AiFillDelete } from "react-icons/ai";
 import { SlCalender } from "react-icons/sl";
 import axios from "axios";
 
-export default function DairyShow() {
+const DairyShow = () => {
   const dispatch = useDispatch();
   let [model, setmodel] = useState(false);
   let [data, setData] = useState([]);
@@ -39,10 +39,12 @@ export default function DairyShow() {
   const [exercise, setExercise] = useState(0);
   var Token;
   Token = localStorage.getItem("token");
-
+  const adminStore = useSelector((state) => state.adminReducer);
+  const { change } = adminStore;
+  console.log(change);
   const GetRequest = () => {
     axios
-      .get(`${process.env.REACT_APP_BACKEND_KEY}nutrition/getuserdata`, {
+      .get(`https://calofitbackend.cyclic.app/nutrition/getuserdata`, {
         headers: {
           Authorization: `Bearer ${Token}`,
         },
@@ -56,7 +58,7 @@ export default function DairyShow() {
 
   useEffect(() => {
     GetRequest();
-  }, []);
+  }, [change]);
 
   //
 
@@ -675,4 +677,5 @@ export default function DairyShow() {
       </Box>
     </Box>
   );
-}
+};
+export default DairyShow;

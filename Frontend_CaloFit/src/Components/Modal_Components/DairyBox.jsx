@@ -5,14 +5,15 @@ import Exercise from "./Exercise";
 import Note from "./Note";
 import Fast from "./Fast";
 import axios from "axios";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { changeDataHandler } from "../../Redux/AdminUserReducer/action";
 
 const DairyBox = () => {
   const [dataFromChild, setDataFromChild] = useState(null);
   const [exerciseData, setExerciseData] = useState(null);
   const [NoteFromChid, setNoteFromChild] = useState(null);
   const [Notemy, setNote] = useState(null);
-
+  const dispatch = useDispatch();
   const handleNoteFromChild = (data) => {
     setNoteFromChild(data);
     // console.log(NoteFromChid)
@@ -20,10 +21,12 @@ const DairyBox = () => {
 
   const handleDataFromChild = (data) => {
     setDataFromChild(data.kcal_consumed_eaten);
+    dispatch(changeDataHandler());
   };
 
   const handleExerciseChild = (data) => {
     setExerciseData(data.excercise_done);
+
     // console.log(exerciseData, "this is exercise")
   };
 

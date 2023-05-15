@@ -173,6 +173,7 @@ const SignUpPage = () => {
                         fontWeight="semibold"
                         fontSize="lg"
                         fontFamily={"Manrope"}
+                        type="email"
                       >
                         Email
                       </Text>

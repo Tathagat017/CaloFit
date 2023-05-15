@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import DashboardPage from "./DashboardPage";
 import DairyBox from "../Components/Modal_Components/DairyBox";
 import CalendarBox from "../Components/Modal_Components/Calendar";
@@ -8,6 +8,8 @@ import DonutChart from "./../Components/DashboardPage_Components/DonutChart";
 import { Wrap, WrapItem, Center } from "@chakra-ui/react";
 import DairyShow from "../Components/DashboardPage_Components/DairyToShow";
 const DairyPage = () => {
+  const [statusChange, setStatusChange] = useState(false);
+
   const donut = [
     {
       name: "kcal",
@@ -75,6 +77,9 @@ const DairyPage = () => {
     fat: 0.2,
     potassium: 107,
   };
+
+  const dummyFunction = () => {};
+
   return (
     <DashboardPage>
       <Grid
@@ -99,7 +104,7 @@ const DairyPage = () => {
           </WrapItem>
         </Wrap> */}
       </Box>
-      <DairyShow/>
+      <DairyShow />
     </DashboardPage>
   );
 };
