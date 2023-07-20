@@ -20,10 +20,7 @@
  ------
  # Quick Overview
  
-## Sign Up Page ![i![car](https://github.com/Tathagat017/CaloFit/assets/114250830/faf5c710-7f28-4a55-8ca6-f4a65402ef1e)
-## Sign In Page
-![![car](https://github.com/Tathagat017/CaloFit/assets/114250830/faf5c710-7f28-4a55-8ca6-f4a65402ef1e)
-mage]
+
 ## Add Foods to diary
 ![image](https://github.com/UmaSahni/JS101_Learning_Javascript/assets/112793743/b1c20c8d-bc59-4caf-98d8-55ddc7c29cf5)
 ## Get Visual Representation of data
