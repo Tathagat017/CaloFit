@@ -20,12 +20,11 @@
  ------
  # Quick Overview
  
- ## Responsive Landing Page
-![image](https://github.com/UmaSahni/JS101_Learning_Javascript/assets/112793743/d0352710-7254-4081-9843-7a744ccf3b78)
-## Sign Up Page 
-![image](https://github.com/UmaSahni/JS101_Learning_Javascript/assets/112793743/9c8f810b-9745-4220-b11e-11713eebac45)
+## Sign Up Page ![car])
+![image]()
 ## Sign In Page
-![image](https://github.com/UmaSahni/JS101_Learning_Javascript/assets/112793743/17155eff-9c98-4005-87f9-c17dec669381)
+![i![car](https://github.com/Tathagat017/CaloFit/assets/114250830/faf5c710-7f28-4a55-8ca6-f4a65402ef1e)
+mage]
 ## Add Foods to diary
 ![image](https://github.com/UmaSahni/JS101_Learning_Javascript/assets/112793743/b1c20c8d-bc59-4caf-98d8-55ddc7c29cf5)
 ## Get Visual Representation of data
